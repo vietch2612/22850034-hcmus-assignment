@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 
-class AdjancencyMatrix
+class AdjacencyMatrix
 {
     public:
 
@@ -100,7 +100,7 @@ class AdjancencyMatrix
 
 int main ()
 {
-    AdjancencyMatrix AM;
+    AdjacencyMatrix AM;
     AM.readAdjacencyMatrix("adjacency-matrix_1.txt");
     AM.showVertex();
     AM.showAdjacencyMatrix();
