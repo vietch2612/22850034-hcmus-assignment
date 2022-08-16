@@ -101,7 +101,7 @@ class AdjacencyMatrix
 int main ()
 {
     AdjacencyMatrix AM;
-    AM.readAdjacencyMatrix("adjacency-matrix_1.txt");
+    AM.readAdjacencyMatrix("adjacency-matrix.txt");
     AM.showVertex();
     AM.showAdjacencyMatrix();
     AM.verifyAdjacencyMatrix();
