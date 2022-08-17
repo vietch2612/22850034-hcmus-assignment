@@ -83,35 +83,25 @@ class AdjacencyList
     int verifyAdjacencyList()
     {
         bool is_2d_graph = true;
-        
         for (int i = 0; i < vertex; i ++)
-        {
-            for (int j = 1; j < matrix[i][0]; j ++)
+        {   
+            for (int j = 1; j <= matrix[i][0]; j++)
             {
-                for (int k = 1; k < matrix[j][0]; k++)
+                for (int k = 1; k <= matrix[j][0]; k++)
                 {
-                    std::cout << i << "," << j << "," << k << std::endl;
-                    if (matrix[j][k] == i)
+                    int vertex_to_compare = matrix[i][j];
+                    if (matrix[vertex_to_compare][k] == i)
                     {
-                        std::cout << "broke" << std::endl;
-                        continue;
+                        goto exit_loop;
                     }
-                    
                 }
-                is_2d_graph = false;
             }
-            
+            is_2d_graph = false;
+            exit_loop:;
         }
 
-        if (is_2d_graph)
-        {
-            std::cout << "Danh sach ke bieu dien do thi hai chieu" << std::endl;
-        }
-        else
-        {
-            std::cout << "Danh sach ke bieu dien do thi mot chieu" << std::endl;
-        }
-
+        std::string result = is_2d_graph ? "Danh sach ke bieu dien do thi hai chieu" : "Danh sach ke bieu dien do thi mot chieu";
+        std::cout << result << std::endl;
         return 0;
     }
 };
