@@ -8,6 +8,7 @@ struct AdjacencyList {
   void readAdjacencyList(std::string fileName) {
     std::ifstream file(fileName);
 
+    // Exit early if the file is not exist
     if (!file.good()) {
       std::cout << "Input file is not exist!" << std::endl;
       std::exit(1);
@@ -17,15 +18,17 @@ struct AdjacencyList {
       std::string line;
       for (int i = 0; std::getline(file, line); i++) {
         // Get the number of vertices in the first line
+
         if (i == 0) {
           int n = atoi(line.c_str());
+          // Exit early if the number of vertices isn't met the requirement
           if (n <= 2) {
             std::cout << "Number of vertices should be greater than 2!"
                       << std::endl;
             exit(1);
           }
           this->vertices = n;
-          // Initialize a new row of the matrix
+          // Initialize rows of the matrix
           this->matrix = new int *[this->vertices];
           continue;
         }
@@ -61,7 +64,7 @@ struct AdjacencyMatrix {
   int **matrix;
 
   void insertMatrixFromList(int **m) {
-    // Init a new matrix
+    // Init a 2D matrix VxV and fill with 0
     matrix = new int *[this->vertices];
     for (int i = 0; i < this->vertices; i++) {
       matrix[i] = new int[this->vertices];
@@ -70,18 +73,18 @@ struct AdjacencyMatrix {
       }
     }
 
-    // Fill the matrix
+    // Convert 0 to 1 for adjacent edges
     for (int i = 0; i < vertices; i++) {
       for (int j = 1; j <= m[i][0]; j++) {
-        int v = m[i][j];
-        matrix[i][v] = 1;
+        int index = m[i][j];
+        matrix[i][index] = 1;
       }
     }
   }
 
   void showNumberOfVertex() { std::cout << vertices << std::endl; }
 
-  // Show the metrix
+  // Print the metrix to console
   void showAdjacencyList() {
     for (int i = 0; i < this->vertices; i++) {
       for (int j = 0; j < this->vertices; j++) {
@@ -91,6 +94,7 @@ struct AdjacencyMatrix {
     }
   }
 
+  // Print the metrix to text file with given name
   void printAdjacencyListToFile(std::string fileName) {
     std::ofstream fout(fileName.c_str());
     fout << vertices << std::endl;
