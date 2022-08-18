@@ -1,11 +1,12 @@
 #include <fstream>
 #include <iostream>
 
-struct AdjacencyList {
-  int vertices;
-  int **matrix;
+class AdjacencyList {
+  int gVertices;
+  int **gMatrix;
 
-  void readAdjacencyList(std::string fileName) {
+public:
+  void read_adjacency_list_from_file(std::string fileName) {
     std::ifstream file(fileName);
 
     // Exit early if the file is not exist
@@ -27,9 +28,9 @@ struct AdjacencyList {
                       << std::endl;
             exit(1);
           }
-          this->vertices = n;
+          this->gVertices = n;
           // Initialize rows of the matrix
-          this->matrix = new int *[this->vertices];
+          this->gMatrix = new int *[this->gVertices];
           continue;
         }
 
@@ -43,13 +44,13 @@ struct AdjacencyList {
         // Each row contains the number of adjacent edges of the vertex
         // So that means we have to increase the size by 1
         int size = number_of_vertex + 1;
-        this->matrix[row_number] = new int[size];
+        this->gMatrix[row_number] = new int[size];
 
         // Loop through the string characters
         // If the character != space -> convert to int then push to the array
         for (int j = 0; j < line.length(); j++) {
           if (line[j] != ' ') {
-            this->matrix[row_number][k] = line[j] - '0';
+            this->gMatrix[row_number][k] = line[j] - '0';
             k++;
           }
         }
@@ -57,35 +58,45 @@ struct AdjacencyList {
       file.close();
     }
   }
+
+  int get_vertices() { return gVertices; };
+
+  int **get_adjacency_matrix() {
+    int **tmp_matrix;
+    // Init a 2D matrix VxV and fill all with 0
+    tmp_matrix = new int *[this->gVertices];
+    for (int i = 0; i < this->gVertices; i++) {
+      tmp_matrix[i] = new int[this->gVertices];
+      for (int j = 0; j < this->gVertices; j++) {
+        tmp_matrix[i][j] = 0;
+      }
+    }
+
+    // Convert 0 to 1 for adjacent edges
+    for (int i = 0; i < gVertices; i++) {
+      for (int j = 1; j <= gMatrix[i][0]; j++) {
+        int index = gMatrix[i][j];
+        tmp_matrix[i][index] = 1;
+      }
+    }
+
+    return tmp_matrix;
+  }
 };
 
 struct AdjacencyMatrix {
   int vertices;
   int **matrix;
 
-  void insertMatrixFromList(int **m) {
-    // Init a 2D matrix VxV and fill with 0
-    matrix = new int *[this->vertices];
-    for (int i = 0; i < this->vertices; i++) {
-      matrix[i] = new int[this->vertices];
-      for (int j = 0; j < this->vertices; j++) {
-        matrix[i][j] = 0;
-      }
-    }
-
-    // Convert 0 to 1 for adjacent edges
-    for (int i = 0; i < vertices; i++) {
-      for (int j = 1; j <= m[i][0]; j++) {
-        int index = m[i][j];
-        matrix[i][index] = 1;
-      }
-    }
+  AdjacencyMatrix(int v, int **m) {
+    this->vertices = v;
+    this->matrix = m;
   }
 
-  void showNumberOfVertex() { std::cout << vertices << std::endl; }
+  void print_number_of_vertices() { std::cout << vertices << std::endl; }
 
   // Print the metrix to console
-  void showAdjacencyList() {
+  void print_adjacency_matrix_to_console() {
     for (int i = 0; i < this->vertices; i++) {
       for (int j = 0; j < this->vertices; j++) {
         std::cout << this->matrix[i][j] << " ";
@@ -95,7 +106,7 @@ struct AdjacencyMatrix {
   }
 
   // Print the metrix to text file with given name
-  void printAdjacencyListToFile(std::string fileName) {
+  void print_adjacency_matrix_to_file(std::string fileName) {
     std::ofstream fout(fileName.c_str());
     fout << vertices << std::endl;
     for (int i = 0; i < this->vertices; i++) {
@@ -110,12 +121,12 @@ struct AdjacencyMatrix {
 
 int main() {
   AdjacencyList AL;
-  AdjacencyMatrix AM;
-  AL.readAdjacencyList("adjacency-list.txt");
-  AM.vertices = AL.vertices;
-  AM.showNumberOfVertex();
-  AM.insertMatrixFromList(AL.matrix);
-  AM.showAdjacencyList();
-  AM.printAdjacencyListToFile("adjacency-matrix.txt");
+  AL.read_adjacency_list_from_file("adjacency-list.txt");
+
+  AdjacencyMatrix AM(AL.get_vertices(), AL.get_adjacency_matrix());
+  AM.print_number_of_vertices();
+  AM.print_adjacency_matrix_to_console();
+  AM.print_adjacency_matrix_to_file("adjacency-matrix.txt");
+
   return 0;
 }
