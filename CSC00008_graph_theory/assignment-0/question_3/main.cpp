@@ -92,6 +92,7 @@ struct AdjacencyList {
       }
       fout << std::endl;
     }
+    fout.close();
   }
 };
 
