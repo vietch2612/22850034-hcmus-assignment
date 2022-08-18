@@ -28,9 +28,9 @@ public:
                       << std::endl;
             exit(1);
           }
-          this->gVertices = n;
+          gVertices = n;
           // Initialize rows of the matrix
-          this->gMatrix = new int *[this->gVertices];
+          gMatrix = new int *[gVertices];
           continue;
         }
 
@@ -44,13 +44,13 @@ public:
         // Each row contains the number of adjacent edges of the vertex
         // So that means we have to increase the size by 1
         int size = number_of_vertex + 1;
-        this->gMatrix[row_number] = new int[size];
+        gMatrix[row_number] = new int[size];
 
         // Loop through the string characters
         // If the character != space -> convert to int then push to the array
         for (int j = 0; j < line.length(); j++) {
           if (line[j] != ' ') {
-            this->gMatrix[row_number][k] = line[j] - '0';
+            gMatrix[row_number][k] = line[j] - '0';
             k++;
           }
         }
@@ -64,10 +64,10 @@ public:
   int **get_adjacency_matrix() {
     int **tmp_matrix;
     // Init a 2D matrix VxV and fill all with 0
-    tmp_matrix = new int *[this->gVertices];
-    for (int i = 0; i < this->gVertices; i++) {
-      tmp_matrix[i] = new int[this->gVertices];
-      for (int j = 0; j < this->gVertices; j++) {
+    tmp_matrix = new int *[gVertices];
+    for (int i = 0; i < gVertices; i++) {
+      tmp_matrix[i] = new int[gVertices];
+      for (int j = 0; j < gVertices; j++) {
         tmp_matrix[i][j] = 0;
       }
     }
@@ -89,17 +89,17 @@ struct AdjacencyMatrix {
   int **matrix;
 
   AdjacencyMatrix(int v, int **m) {
-    this->vertices = v;
-    this->matrix = m;
+    vertices = v;
+    matrix = m;
   }
 
   void print_number_of_vertices() { std::cout << vertices << std::endl; }
 
   // Print the metrix to console
   void print_adjacency_matrix_to_console() {
-    for (int i = 0; i < this->vertices; i++) {
-      for (int j = 0; j < this->vertices; j++) {
-        std::cout << this->matrix[i][j] << " ";
+    for (int i = 0; i < vertices; i++) {
+      for (int j = 0; j < vertices; j++) {
+        std::cout << matrix[i][j] << " ";
       }
       std::cout << std::endl;
     }
@@ -109,9 +109,9 @@ struct AdjacencyMatrix {
   void print_adjacency_matrix_to_file(std::string fileName) {
     std::ofstream fout(fileName.c_str());
     fout << vertices << std::endl;
-    for (int i = 0; i < this->vertices; i++) {
-      for (int j = 0; j < this->vertices; j++) {
-        fout << this->matrix[i][j] << " ";
+    for (int i = 0; i < vertices; i++) {
+      for (int j = 0; j < vertices; j++) {
+        fout << matrix[i][j] << " ";
       }
       fout << std::endl;
     }
