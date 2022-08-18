@@ -101,10 +101,9 @@ struct AdjacencyList {
     exit_loop:;
     }
 
-    std::string result = is_2d_graph
-                             ? "Danh sach ke bieu dien do thi hai chieu"
-                             : "Danh sach ke bieu dien do thi mot chieu";
-    std::cout << result << std::endl;
+    is_2d_graph
+        ? std::cout << "Danh sach ke bieu dien do thi hai chieu" << std::endl
+        : std::cout << "Danh sach ke bieu dien do thi mot chieu" << std::endl;
     return 0;
   }
 };
