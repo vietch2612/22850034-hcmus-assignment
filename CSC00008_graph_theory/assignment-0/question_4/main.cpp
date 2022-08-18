@@ -84,8 +84,7 @@ struct AdjacencyMatrix {
   // Show the metrix
   void showAdjacencyList() {
     for (int i = 0; i < this->vertices; i++) {
-      for (int j = 0; j < this->vertices; j++)
-      {
+      for (int j = 0; j < this->vertices; j++) {
         std::cout << this->matrix[i][j] << " ";
       }
       std::cout << std::endl;

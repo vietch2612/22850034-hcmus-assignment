@@ -85,8 +85,7 @@ struct AdjacencyList {
   void printAdjacencyListToFile(std::string fileName) {
     std::ofstream fout(fileName.c_str());
     fout << vertices << std::endl;
-    for (int i = 0; i < this->vertices; i++)
-    {
+    for (int i = 0; i < this->vertices; i++) {
       for (int j = 0; j <= this->matrix[i][0]; j++) {
         fout << this->matrix[i][j] << " ";
       }
