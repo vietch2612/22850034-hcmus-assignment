@@ -69,5 +69,10 @@
         "functional": "cpp",
         "iterator": "cpp",
         "utility": "cpp"
-    }
+    },
+    "C_Cpp.vcFormat.indent.braces": false,
+    "C_Cpp.vcFormat.indent.accessSpecifiers": false,
+    "[cpp]": {
+        "editor.tabSize": 2
+    },
 }
