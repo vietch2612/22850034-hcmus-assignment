@@ -1,11 +1,12 @@
 #include <fstream>
 #include <iostream>
+#include <string>
 
 struct AdjacencyList {
   int vertices;
   int **matrix;
 
-  void readAdjacencyList(std::string fileName) {
+  void read_adjacency_list_from_file(std::string fileName) {
     std::ifstream file(fileName);
 
     if (!file.good()) {
@@ -24,9 +25,9 @@ struct AdjacencyList {
                       << std::endl;
             exit(1);
           }
-          this->vertices = n;
+          vertices = n;
           // Initialize a new row of the matrix
-          this->matrix = new int *[this->vertices];
+          matrix = new int *[vertices];
           continue;
         }
 
@@ -40,13 +41,13 @@ struct AdjacencyList {
         // Each row contains the number of adjacent edges of the vertex
         // So that means we have to increase the size by 1
         int size = number_of_vertex + 1;
-        this->matrix[row_number] = new int[size];
+        matrix[row_number] = new int[size];
 
         // Loop through the string characters
         // If the character != space -> convert to int then push to the array
         for (int j = 0; j < line.length(); j++) {
           if (line[j] != ' ') {
-            this->matrix[row_number][k] = line[j] - '0';
+            matrix[row_number][k] = line[j] - '0';
             k++;
           }
         }
@@ -56,26 +57,26 @@ struct AdjacencyList {
   }
 
   // Show the vertex
-  void showNumberOfVertex() { std::cout << vertices << std::endl; }
+  void print_number_of_vertices() { std::cout << vertices << std::endl; }
 
   // Show the metrix
-  void showAdjacencyList() {
-    for (int i = 0; i < this->vertices; i++) {
-      for (int j = 0; j <= this->matrix[i][0]; j++) {
-        std::cout << this->matrix[i][j] << " ";
+  void print_adjacency_list() {
+    for (int i = 0; i < vertices; i++) {
+      for (int j = 0; j <= matrix[i][0]; j++) {
+        std::cout << matrix[i][j] << " ";
       }
       std::cout << std::endl;
     }
   }
 
   // Verify the Adjacency List
-  int verifyAdjacencyList() {
+  int verify_adjcency_matrix() {
     // Assume the given matrix is 2d graph
     // Then verify that
     bool is_2d_graph = true;
-    for (int i = 0; i < this->vertices; i++) {
-      for (int j = 1; j <= this->matrix[i][0]; j++) {
-        for (int k = 1; k <= this->matrix[j][0]; k++) {
+    for (int i = 0; i < vertices; i++) {
+      for (int j = 1; j <= matrix[i][0]; j++) {
+        for (int k = 1; k <= matrix[j][0]; k++) {
           // ==> 0 [2,->1,2] First round, we found the connection from v(0) ->
           // v(1)
           //     1 [2,0,3]
@@ -87,7 +88,7 @@ struct AdjacencyList {
           //     2 [2,0,3]
           //     3 [2,1,2]
           int vertex_to_compare = matrix[i][j];
-          if (this->matrix[vertex_to_compare][k] == i) {
+          if (matrix[vertex_to_compare][k] == i) {
             // Found the connection
             // Exit the loop and verify the next J
             goto exit_loop;
@@ -110,9 +111,9 @@ struct AdjacencyList {
 
 int main() {
   AdjacencyList AL;
-  AL.readAdjacencyList("adjacency-list.txt");
-  AL.showNumberOfVertex();
-  AL.showAdjacencyList();
-  AL.verifyAdjacencyList();
+  AL.read_adjacency_list_from_file("adjacency-list.txt");
+  AL.print_number_of_vertices();
+  AL.print_adjacency_list();
+  AL.verify_adjcency_matrix();
   return 0;
 }

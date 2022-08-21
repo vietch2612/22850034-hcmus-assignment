@@ -1,12 +1,13 @@
 #include <fstream>
 #include <iostream>
+#include <string>
 
 struct AdjacencyMatrix {
-  int vertex;
+  int gVertices;
   int **matrix;
 
   // Read the Matrix
-  void readAdjacencyMatrix(std::string fileName) {
+  void read_adjacency_matrix_from_file(std::string fileName) {
     std::ifstream file(fileName);
 
     if (!file.good()) {
@@ -17,18 +18,18 @@ struct AdjacencyMatrix {
     if (file.is_open()) {
       std::string line;
       for (int i = 0; std::getline(file, line); i++) {
-        // update vertex if this is the first line
+        // update gVertices if this is the first line
         if (i == 0) {
           int v_number = atoi(line.c_str());
           if (v_number <= 2) {
-            std::cout << "Vertex should be greater than 2" << std::endl;
+            std::cout << "Number of vertices should be greater than 2" << std::endl;
             exit(1);
           }
-          vertex = v_number;
+          gVertices = v_number;
           // init a new matrix
-          matrix = new int *[vertex];
-          for (int i = 0; i < vertex; i++)
-            matrix[i] = new int[vertex];
+          matrix = new int *[gVertices];
+          for (int i = 0; i < gVertices; i++)
+            matrix[i] = new int[gVertices];
           continue;
         }
 
@@ -46,13 +47,13 @@ struct AdjacencyMatrix {
     }
   }
 
-  // Show the vertex
-  void showVertex() { std::cout << vertex << std::endl; }
+  // Show the gVertices
+  void print_number_of_vertices() { std::cout << gVertices << std::endl; }
 
   // Show the metrix
-  void showAdjacencyMatrix() {
-    for (int i = 0; i < vertex; i++) {
-      for (int j = 0; j < vertex; j++) {
+  void print_adjacency_matrix() {
+    for (int i = 0; i < gVertices; i++) {
+      for (int j = 0; j < gVertices; j++) {
         std::cout << (char)matrix[i][j] << " ";
       }
       std::cout << std::endl;
@@ -60,10 +61,10 @@ struct AdjacencyMatrix {
   }
 
   // Verify the Adjacency Matrix
-  void verifyAdjacencyMatrix() {
+  void verify_matrix_symmetric() {
     bool is_symmetric = true;
-    for (int i = 0; i < vertex; i++) {
-      for (int j = 0; j < vertex; j++) {
+    for (int i = 0; i < gVertices; i++) {
+      for (int j = 0; j < gVertices; j++) {
         if (matrix[i][j] != matrix[j][i]) {
           is_symmetric = false;
           break;
@@ -78,9 +79,9 @@ struct AdjacencyMatrix {
 
 int main() {
   AdjacencyMatrix AM;
-  AM.readAdjacencyMatrix("adjacency-matrix.txt");
-  AM.showVertex();
-  AM.showAdjacencyMatrix();
-  AM.verifyAdjacencyMatrix();
+  AM.read_adjacency_matrix_from_file("adjacency-matrix.txt");
+  AM.print_number_of_vertices();
+  AM.print_adjacency_matrix();
+  AM.verify_matrix_symmetric();
   return 0;
 }

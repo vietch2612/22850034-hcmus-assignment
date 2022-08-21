@@ -1,5 +1,7 @@
+// Question 4
 #include <fstream>
 #include <iostream>
+#include <string>
 
 class AdjacencyList {
   int gVertices;
@@ -19,7 +21,6 @@ public:
       std::string line;
       for (int i = 0; std::getline(file, line); i++) {
         // Get the number of vertices in the first line
-
         if (i == 0) {
           int n = atoi(line.c_str());
           // Exit early if the number of vertices isn't met the requirement
