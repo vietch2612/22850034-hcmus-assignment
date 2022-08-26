@@ -7,6 +7,7 @@
 class AdjacencyMatrix {
   int gVertices;
   int **gMatrix;
+  bool gIsSymmetric;
 
   void read_adjacency_matrix_from_file(std::string file_name) {
     std::ifstream file(file_name);
@@ -70,9 +71,15 @@ class AdjacencyMatrix {
     int canh_do_thi = 0;
 
     for (int i = 0; i < gVertices; i++) {
-      for (int j = 0; j < gVertices; j++) {
-        if (gMatrix[i][j] == 1) {
-          canh_do_thi++;
+      if (gIsSymmetric) {
+        for (int j = 0 + i; j < gVertices; j++) {
+          canh_do_thi += gMatrix[i][j];
+        }
+      } else {
+        for (int j = 0; j < gVertices; j++) {
+          if (gMatrix[i][j] > 0) {
+            canh_do_thi += gMatrix[i][j];
+          }
         }
       }
     }
@@ -83,10 +90,17 @@ class AdjacencyMatrix {
   int count_so_cap_dinh_xuat_hien_canh_boi() {
     int count = 0;
     for (int i = 0; i < gVertices; i++) {
-      for (int j = 0; j < gVertices; j++) {
-        if ((gMatrix[i][j] == gMatrix[j][i] == 1) && (gMatrix[i][j] == 1) &&
-            (gMatrix[j][i] == 1) && (i != j)) {
-          count++;
+      if (gIsSymmetric) {
+        for (int j = 0 + i; j < gVertices; j++) {
+          if (gMatrix[i][j] > 1) {
+            count++;
+          }
+        }
+      } else {
+        for (int j = 0; j < gVertices; j++) {
+          if (gMatrix[i][j] > 1) {
+            count++;
+          }
         }
       }
     }
@@ -107,7 +121,7 @@ class AdjacencyMatrix {
     return count;
   }
 
-  int **count_bac_cua_tung_dinh() {
+  int **count_bac_directed() {
     int **counts = 0;
     counts = new int *[gVertices];
 
@@ -127,12 +141,37 @@ class AdjacencyMatrix {
     return counts;
   }
 
+  int *count_bac_undirected() {
+    int *counts = 0;
+    counts = new int[gVertices];
+
+    for (int i = 0; i < gVertices; i++) {
+      for (int j = 0; j < gVertices; j++) {
+        if (gMatrix[j][i] != 0) {
+          counts[i] += gMatrix[j][i];
+        }
+        if (i == j) {
+          counts[i] += gMatrix[i][j];
+        }
+      }
+    }
+
+    return counts;
+  }
+
   int count_so_theo_dieu_kien(int so_dinh) {
     int count = 0;
-    int **degrees = count_bac_cua_tung_dinh();
-    for (int i = 0;
-         (i < gVertices) && (degrees[i][0] + degrees[i][1] == so_dinh); i++) {
-      count++;
+    if (gIsSymmetric) {
+      int **degrees = count_bac_directed();
+      for (int i = 0;
+           (i < gVertices) && (degrees[i][0] + degrees[i][1] == so_dinh); i++) {
+        count++;
+      }
+    } else {
+      int *degrees = count_bac_undirected();
+      for (int i = 0; (i < gVertices) && (degrees[i] == so_dinh); i++) {
+        count++;
+      }
     }
 
     return count;
@@ -144,6 +183,7 @@ class AdjacencyMatrix {
 public:
   AdjacencyMatrix(std::string file_name) {
     read_adjacency_matrix_from_file(file_name);
+    gIsSymmetric = is_do_thi_vo_huong();
   }
 
   void print_number_of_vertices() { std::cout << gVertices << std::endl; }
@@ -158,8 +198,8 @@ public:
   }
 
   void print_ma_tran_ke() {
-    is_do_thi_vo_huong() ? std::cout << "Do thi vo huong" << std::endl
-                         : std::cout << "Do thi co huong" << std::endl;
+    gIsSymmetric ? std::cout << "Do thi vo huong" << std::endl
+                 : std::cout << "Do thi co huong" << std::endl;
   }
 
   int count_dinh_cua_do_thi() {
@@ -181,12 +221,11 @@ public:
   }
 
   void xac_dinh_loai_do_thi() {
-    bool vo_huong = is_do_thi_vo_huong();
     bool co_canh_boi = count_so_cap_dinh_xuat_hien_canh_boi() > 0;
     bool co_khuyen = count_so_canh_khuyen() > 0;
     std::string loai_do_thi = "unknown";
 
-    if (vo_huong) {
+    if (gIsSymmetric) {
       if (co_canh_boi) {
         // Co canh boi
         if (co_khuyen) {
@@ -210,12 +249,21 @@ public:
   }
 
   void print_degrees() {
-    int **degrees = count_bac_cua_tung_dinh();
-    std::cout << "Bac cua tung dinh:" << std::endl;
-    for (int i = 0; i < gVertices; i++) {
-      std::cout << i << "(" << degrees[i][0] << "-" << degrees[i][1] << ") ";
+    if (gIsSymmetric) {
+      int *degrees = count_bac_undirected();
+      std::cout << "Bac cua tung dinh:" << std::endl;
+      for (int i = 0; i < gVertices; i++) {
+        std::cout << i << "(" << degrees[i] << ") ";
+      }
+      std::cout << std::endl;
+    } else {
+      int **degrees = count_bac_directed();
+      std::cout << "Bac cua tung dinh:" << std::endl;
+      for (int i = 0; i < gVertices; i++) {
+        std::cout << i << "(" << degrees[i][0] << "-" << degrees[i][1] << ") ";
+      }
+      std::cout << std::endl;
     }
-    std::cout << std::endl;
   }
 
   void print_so_dinh_treo() {
@@ -241,5 +289,22 @@ int main() {
   AM.print_so_dinh_co_lap();
   AM.print_degrees();
   AM.xac_dinh_loai_do_thi();
+
+  std::cout << "-------------------------" << std::endl;
+
+  AdjacencyMatrix AM2("input2.txt");
+
+  AM2.print_number_of_vertices();
+  AM2.print_adjacency_matrix_to_console();
+  AM2.print_ma_tran_ke();
+  AM2.count_dinh_cua_do_thi();
+  AM2.print_so_canh_cua_do_thi();
+  AM2.print_so_cap_dinh_xuat_hien_canh_boi();
+  AM2.print_so_canh_khuyen();
+  AM2.print_so_dinh_treo();
+  AM2.print_so_dinh_co_lap();
+  AM2.print_degrees();
+  AM2.xac_dinh_loai_do_thi();
+
   return 0;
 }
