@@ -161,16 +161,20 @@ class AdjacencyMatrix {
 
   int count_so_theo_dieu_kien(int so_dinh) {
     int count = 0;
+
     if (gIsSymmetric) {
-      int **degrees = count_bac_directed();
-      for (int i = 0;
-           (i < gVertices) && (degrees[i][0] + degrees[i][1] == so_dinh); i++) {
-        count++;
+      int *degrees = count_bac_undirected();
+      for (int i = 0; (i < gVertices); i++) {
+        if (degrees[i] == so_dinh) {
+          count++;
+        }
       }
     } else {
-      int *degrees = count_bac_undirected();
-      for (int i = 0; (i < gVertices) && (degrees[i] == so_dinh); i++) {
-        count++;
+      int **degrees = count_bac_directed();
+      for (int i = 0; (i < gVertices); i++) {
+        if (degrees[i][0] + degrees[i][1] == so_dinh) {
+          count++;
+        }
       }
     }
 
