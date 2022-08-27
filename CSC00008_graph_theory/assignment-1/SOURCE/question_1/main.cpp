@@ -3,13 +3,14 @@
 #include <iostream>
 #include <ostream>
 #include <string>
+#include <vector>
 
 class AdjacencyMatrix {
   int gVertices;
   int **gMatrix;
   bool gIsSymmetric;
 
-  void read_adjacency_matrix_from_file(std::string file_name) {
+  void load_adjacency_matrix_from_file(std::string file_name) {
     std::ifstream file(file_name);
 
     // Exit early if the file is not exist
@@ -141,32 +142,34 @@ class AdjacencyMatrix {
     return counts;
   }
 
-  int *count_bac_undirected() {
-    int *counts = 0;
-    counts = new int[gVertices];
+  std::vector<int> count_bac_undirected() {
+    std::vector<int> degrees;
 
     for (int i = 0; i < gVertices; i++) {
+      int count = 0;
       for (int j = 0; j < gVertices; j++) {
-        if (gMatrix[j][i] != 0) {
-          counts[i] += gMatrix[j][i];
+        if (gMatrix[i][j] != 0) {
+          count += gMatrix[i][j];
         }
         if (i == j) {
-          counts[i] += gMatrix[i][j];
+          count += gMatrix[i][j];
         }
       }
+      degrees.push_back(count);
     }
 
-    return counts;
+    return degrees;
   }
 
   int count_so_theo_dieu_kien(int so_dinh) {
     int count = 0;
 
     if (gIsSymmetric) {
-      int *degrees = count_bac_undirected();
-      for (int i = 0; (i < gVertices); i++) {
+      std::vector<int> degrees = count_bac_undirected();
+      for (int i = 0; i < degrees.size(); i++) {
         if (degrees[i] == so_dinh) {
           count++;
+          std::cout << "in" << std::endl;
         }
       }
     } else {
@@ -186,7 +189,7 @@ class AdjacencyMatrix {
 
 public:
   AdjacencyMatrix(std::string file_name) {
-    read_adjacency_matrix_from_file(file_name);
+    load_adjacency_matrix_from_file(file_name);
     gIsSymmetric = is_do_thi_vo_huong();
   }
 
@@ -204,11 +207,6 @@ public:
   void print_ma_tran_ke() {
     gIsSymmetric ? std::cout << "Do thi vo huong" << std::endl
                  : std::cout << "Do thi co huong" << std::endl;
-  }
-
-  int count_dinh_cua_do_thi() {
-    std::cout << "So dinh cua do thi: " << gVertices << std::endl;
-    return gVertices;
   }
 
   void print_so_canh_cua_do_thi() {
@@ -254,7 +252,7 @@ public:
 
   void print_degrees() {
     if (gIsSymmetric) {
-      int *degrees = count_bac_undirected();
+      std::vector<int> degrees = count_bac_undirected();
       std::cout << "Bac cua tung dinh:" << std::endl;
       for (int i = 0; i < gVertices; i++) {
         std::cout << i << "(" << degrees[i] << ") ";
@@ -285,7 +283,7 @@ int main() {
   AM.print_number_of_vertices();
   AM.print_adjacency_matrix_to_console();
   AM.print_ma_tran_ke();
-  AM.count_dinh_cua_do_thi();
+  AM.print_number_of_vertices();
   AM.print_so_canh_cua_do_thi();
   AM.print_so_cap_dinh_xuat_hien_canh_boi();
   AM.print_so_canh_khuyen();
@@ -301,7 +299,7 @@ int main() {
   AM2.print_number_of_vertices();
   AM2.print_adjacency_matrix_to_console();
   AM2.print_ma_tran_ke();
-  AM2.count_dinh_cua_do_thi();
+  AM2.print_number_of_vertices();
   AM2.print_so_canh_cua_do_thi();
   AM2.print_so_cap_dinh_xuat_hien_canh_boi();
   AM2.print_so_canh_khuyen();
