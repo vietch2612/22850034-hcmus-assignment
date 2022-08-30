@@ -58,19 +58,13 @@ class AdjacencyMatrix {
     }
 
     bool is_complete_graph() {
-        bool result = true;
-
-        for (int i = 0; i < gVertices; i++) {
-            for (int j = 0; j < gVertices; j++) {
+        for (int i = 0; i < gVertices; i++)
+            for (int j = 0; j < gVertices; j++)
                 if ((i != j && gMatrix[i][j] != 1) ||
-                    ((i == j) && gMatrix[i][j] != 0)) {
-                    result = false;
-                    break;
-                }
-            }
-        }
+                    ((i == j) && gMatrix[i][j] != 0))
+                    return false;
 
-        return result;
+        return true;
     }
 
     std::vector<int> count_degrees() {
@@ -88,45 +82,6 @@ class AdjacencyMatrix {
         }
 
         return degrees;
-    }
-
-    bool is_cycle_graph() {
-        bool result = true;
-
-        // All degrees in undirected graph should be 2
-        std::vector<int> degrees = count_degrees();
-        for (int i = 0; i < degrees.size() && degrees[i] != 2; i++)
-            return false;
-
-        bool *visited = new bool[gVertices];
-        visited[0] = true;
-        /* bool *unvisited = new bool[gVertices]; */
-
-        for (int i = 0; i < gVertices; i++) {
-            for (int j = 0; j < gVertices; j++) {
-                std::cout << "Verify " << i << "," << j << std::endl;
-                if (i == j)
-                    continue;
-                if (gMatrix[i][j] != 0) {
-                    if (!visited[j]) {
-                        std::cout << "set visited" << std::endl;
-                        visited[j] = true;
-                        goto ctn;
-                    } else {
-                        if (j == 0) {
-                            if (is_all_visited(visited)) {
-                                return true;
-                            }
-                        }
-                    }
-                    continue;
-                }
-            }
-            std::cout << "exit" << std::endl;
-            return false;
-        ctn:;
-        }
-        return result;
     }
 
     bool dfs(int vertex, std::set<int> &visited, int parent) {
@@ -160,14 +115,6 @@ class AdjacencyMatrix {
                 return true;
         }
         return false;
-    }
-
-    bool is_all_visited(bool visited[]) {
-        for (int i = 0; i < gVertices; i++) {
-            if (!visited[i])
-                return false;
-        }
-        return true;
     }
 
 public:
