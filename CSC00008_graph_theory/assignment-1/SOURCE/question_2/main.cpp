@@ -84,36 +84,25 @@ class AdjacencyMatrix {
         return degrees;
     }
 
-    bool dfs(int vertex, std::set<int> &visited, int parent) {
-        visited.insert(vertex);
+    bool depth_first_search(int vertex, std::vector<int> &visited, int parent) {
+        visited[vertex] = true;
 
         for (int v = 0; v < gVertices; v++) {
-            std::cout << "v: " << v << std::endl;
             if (gMatrix[vertex][v]) {
                 if (v == parent)
                     continue;
-                if (visited.find(v) != visited.end())
+                if (visited[v])
                     return true;
-                if (dfs(v, visited, vertex))
+                if (depth_first_search(v, visited, vertex))
                     return true;
             }
         }
         return false;
     }
 
-    bool has_cycle() {
-        std::vector<int> degrees = count_degrees();
-        for (int i = 0; i < degrees.size() && degrees[i] != 2; i++)
-            return false;
-
-        std::set<int> visited;
-        for (int v = 0; v < gVertices; v++) {
-            std::cout << "v: " << v << std::endl;
-            if (visited.find(v) != visited.end())
-                continue;
-            if (dfs(v, visited, -1))
-                return true;
-        }
+    bool are_all_visited(std::vector<int> visited) {
+        if (std::equal(visited.begin() + 1, visited.end(), visited.begin()))
+            return true;
         return false;
     }
 
@@ -153,8 +142,16 @@ public:
     }
 
     void print_is_cycle_graph() {
-        has_cycle() ? std::cout << "1" << std::endl
-                    : std::cout << "0" << std::endl;
+        std::vector<int> visited(gVertices, false);
+
+        // This is cycle graph so we should start at 0, parent = none (-1)
+        if (depth_first_search(0, visited, -1))
+            if (are_all_visited(visited)) {
+                std::cout << "Day la do thi vong C" << visited.size()
+                          << std::endl;
+                return;
+            }
+        std::cout << "Day khong phai la do thi vong" << std::endl;
     }
 };
 
@@ -166,16 +163,6 @@ int main() {
     AM.print_is_complete_graph();
     AM.print_is_regular_graph();
     AM.print_is_cycle_graph();
-
-    std::cout << "-------------------------" << std::endl;
-
-    AdjacencyMatrix AM2("input2.txt");
-
-    AM2.print_number_of_vertices();
-    AM2.print_adjacency_matrix_to_console();
-    AM2.print_is_complete_graph();
-    AM2.print_is_regular_graph();
-    AM2.print_is_cycle_graph();
 
     return 0;
 }
