@@ -142,6 +142,10 @@ public:
     }
 
     void print_is_cycle_graph() {
+        // All degrees must be equal to 2
+        // Number of vertices must be greater or equal to 3
+        // No loops
+        // No multiple edges
         std::vector<int> visited(gVertices, false);
 
         // This is cycle graph so we should start at 0, parent = none (-1)
