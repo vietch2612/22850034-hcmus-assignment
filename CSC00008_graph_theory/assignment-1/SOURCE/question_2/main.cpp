@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <ostream>
+#include <set>
 #include <string>
 #include <vector>
 
@@ -128,6 +129,39 @@ class AdjacencyMatrix {
         return result;
     }
 
+    bool dfs(int vertex, std::set<int> &visited, int parent) {
+        visited.insert(vertex);
+
+        for (int v = 0; v < gVertices; v++) {
+            std::cout << "v: " << v << std::endl;
+            if (gMatrix[vertex][v]) {
+                if (v == parent)
+                    continue;
+                if (visited.find(v) != visited.end())
+                    return true;
+                if (dfs(v, visited, vertex))
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    bool has_cycle() {
+        std::vector<int> degrees = count_degrees();
+        for (int i = 0; i < degrees.size() && degrees[i] != 2; i++)
+            return false;
+
+        std::set<int> visited;
+        for (int v = 0; v < gVertices; v++) {
+            std::cout << "v: " << v << std::endl;
+            if (visited.find(v) != visited.end())
+                continue;
+            if (dfs(v, visited, -1))
+                return true;
+        }
+        return false;
+    }
+
     bool is_all_visited(bool visited[]) {
         for (int i = 0; i < gVertices; i++) {
             if (!visited[i])
@@ -172,8 +206,8 @@ public:
     }
 
     void print_is_cycle_graph() {
-        is_cycle_graph() ? std::cout << "1" << std::endl
-                         : std::cout << "0" << std::endl;
+        has_cycle() ? std::cout << "1" << std::endl
+                    : std::cout << "0" << std::endl;
     }
 };
 
