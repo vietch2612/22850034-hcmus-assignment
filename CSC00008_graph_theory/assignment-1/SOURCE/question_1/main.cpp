@@ -62,7 +62,6 @@ class AdjacencyMatrix {
             for (int j = 0; j < gVertices; j++)
                 if (gMatrix[i][j] != gMatrix[j][i])
                     return false;
-
         return true;
     }
 
@@ -219,13 +218,13 @@ public:
         std::string graph_type = "unknown";
 
         if (gIsSymmetric) {
-            if (has_multiple_edge) {
+            if (has_multiple_edge)
                 // Co canh boi
                 if (has_loop)
                     graph_type = "Gia do thi";
                 else
                     graph_type = "Da do thi";
-            } else
+            else
                 graph_type = "Don do thi";
         } else {
             if (has_loop) {
