@@ -69,18 +69,11 @@ class AdjacencyMatrix {
         int canh_do_thi = 0;
 
         for (int i = 0; i < gVertices; i++) {
-            if (gIsSymmetric) {
-                for (int j = 0 + i; j < gVertices; j++)
-                    canh_do_thi += gMatrix[i][j];
-            } else {
-                for (int j = 0; j < gVertices; j++) {
-                    if (gMatrix[i][j] > 0)
-                        canh_do_thi += gMatrix[i][j];
-                }
-            }
+            for (int j = 0; j < gVertices; j++)
+                canh_do_thi += gMatrix[i][j];
         }
 
-        return canh_do_thi;
+        return gIsSymmetric ? canh_do_thi / 2 : canh_do_thi;
     }
 
     int count_multiple_edges() {

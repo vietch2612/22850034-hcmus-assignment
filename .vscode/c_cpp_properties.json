@@ -3,7 +3,9 @@
         {
             "name": "Mac",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Kernel.framework/Versions/A/Headers/arm",
+                "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include"
             ],
             "defines": [],
             "macFrameworkPath": [
@@ -11,7 +13,7 @@
             ],
             "compilerPath": "/usr/bin/clang",
             "cStandard": "c17",
-            "cppStandard": "c++17",
+            "cppStandard": "c++03",
             "intelliSenseMode": "macos-clang-arm64"
         }
     ],

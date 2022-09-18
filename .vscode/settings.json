@@ -68,6 +68,10 @@
         "algorithm": "cpp",
         "functional": "cpp",
         "iterator": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "filesystem": "cpp",
+        "__tree": "cpp",
+        "queue": "cpp",
+        "set": "cpp"
     }
 }
