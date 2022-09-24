@@ -8,7 +8,7 @@
 #include <vector>
 
 class AdjacencyMatrix {
-    int gVertices;
+    int gNumVertices;
     int **gMatrix;
     int gStart;
     int gEnd;
@@ -34,8 +34,8 @@ class AdjacencyMatrix {
                             << std::endl;
                         exit(1);
                     }
-                    gVertices = n;
-                    gMatrix = new int *[gVertices];
+                    gNumVertices = n;
+                    gMatrix = new int *[gNumVertices];
                 }
 
                 if (i == 1) {
@@ -47,7 +47,7 @@ class AdjacencyMatrix {
                 int k = 0;
                 int row_number = i - 2;
 
-                gMatrix[row_number] = new int[gVertices];
+                gMatrix[row_number] = new int[gNumVertices];
 
                 for (int j = 0; j < line.length(); j++) {
                     if (line[j] != ' ') {
@@ -61,31 +61,31 @@ class AdjacencyMatrix {
     }
 
     bool is_syncmetric() {
-        for (int i = 0; i < gVertices; i++)
-            for (int j = i; j < gVertices; j++)
+        for (int i = 0; i < gNumVertices; i++)
+            for (int j = i; j < gNumVertices; j++)
                 if (gMatrix[i][j] != gMatrix[j][i])
                     return false;
         return true;
     }
 
-    bool dfs(int u, int v, std::vector<bool> &visited, std::vector<int> &path,
-             std::vector<int> &route) {
-        visited[u] = true;
-        path.push_back(u);
-        route.push_back(u);
+    bool dfs(int start, int end, std::vector<bool> &visited,
+             std::vector<int> &steps, std::vector<int> &path) {
+        visited[start] = true;
+        steps.push_back(start);
+        path.push_back(start);
 
-        if (u == v && v >= 0)
+        if (start == end && end >= 0)
             return true;
 
-        for (int i = 0; i < gVertices; i++) {
-            if (gMatrix[u][i]) {
+        for (int i = 0; i < gNumVertices; i++) {
+            if (gMatrix[start][i]) {
                 if (visited[i]) {
                     continue;
                 }
-                if (dfs(i, v, visited, path, route))
+                if (dfs(i, end, visited, steps, path))
                     return true;
                 else
-                    route.pop_back();
+                    path.pop_back();
             }
         }
 
@@ -93,7 +93,7 @@ class AdjacencyMatrix {
     }
 
     void bfs(int start, int end, std::vector<int> &previous,
-             std::vector<int> &path, std::vector<bool> &visited) {
+             std::vector<int> &steps, std::vector<bool> &visited) {
         std::queue<int> my_queue;
 
         my_queue.push(start);
@@ -106,12 +106,12 @@ class AdjacencyMatrix {
                 continue;
 
             visited[u] = true;
-            path.push_back(u);
+            steps.push_back(u);
 
             if ((u == end) && (end >= 0))
                 return;
 
-            for (int i = 0; i < gVertices; i++) {
+            for (int i = 0; i < gNumVertices; i++) {
                 if ((gMatrix[u][i] != 0) && (!visited[i])) {
                     my_queue.push(i);
                     if (previous[i] == -1)
@@ -122,10 +122,10 @@ class AdjacencyMatrix {
     }
 
     std::vector<int> backtrace(int start, int end, std::vector<int> &previous) {
-        std::vector<int> route;
+        std::vector<int> path;
         for (int v = end; v != -1; v = previous[v])
-            route.push_back(v);
-        return route;
+            path.push_back(v);
+        return path;
     }
 
 public:
@@ -134,69 +134,69 @@ public:
         gIsSyncmetric = is_syncmetric();
     }
 
-    int get_vertices() { return gVertices; }
+    int get_vertices() { return gNumVertices; }
     bool is_undirected() { return gIsSyncmetric; }
 
     bool has_loop() {
-        for (int i = 0; (i < gVertices) && (gMatrix[i][i] != 0); i++)
+        for (int i = 0; (i < gNumVertices) && (gMatrix[i][i] != 0); i++)
             return true;
         return false;
     }
 
     bool has_multiple_edges() {
-        for (int i = 0; i < gVertices; i++)
-            for (int j = 0; j < gVertices; j++)
+        for (int i = 0; i < gNumVertices; i++)
+            for (int j = 0; j < gNumVertices; j++)
                 if (gMatrix[i][j] > 1)
                     return true;
         return false;
     }
 
     void find_path_by_dfs() {
-        std::vector<bool> visited(gVertices, false);
+        std::vector<bool> visited(gNumVertices, false);
+        std::vector<int> steps;
         std::vector<int> path;
-        std::vector<int> route;
         bool is_found = false;
 
-        if (dfs(gStart, gEnd, visited, path, route))
+        if (dfs(gStart, gEnd, visited, steps, path))
             is_found = true;
 
         std::cout << "Danh sach cac dinh duyet theo thu tu:" << std::endl;
-        for (int i = 0; i < path.size(); i++)
-            std::cout << path[i] << " ";
+        for (int i = 0; i < steps.size(); i++)
+            std::cout << steps[i] << " ";
+        std::cout << std::endl;
 
         if (is_found) {
-            std::cout << "\nDuong di theo kieu xuoi:" << std::endl;
-            for (int i = 0; i < path.size(); i++) {
-                std::cout << path[i];
-                if (i != path.size() - 1)
+            std::cout << "Duong di theo kieu xuoi:" << std::endl;
+            for (int i = 0; i < steps.size(); i++) {
+                std::cout << steps[i];
+                if (i != steps.size() - 1)
                     std::cout << " -> ";
             }
             std::cout << std::endl;
         } else {
-            std::cout << std::endl;
             std::cout << "Khong tim thay duong" << std::endl;
         }
     }
 
     void find_path_by_bfs() {
-        std::vector<int> path;
-        std::vector<int> route;
-        std::vector<int> previous(gVertices, -1);
-        std::vector<bool> visited(gVertices, false);
+        std::vector<int> steps;
+        std::vector<int> previous(gNumVertices, -1);
+        std::vector<bool> visited(gNumVertices, false);
 
-        bfs(gStart, gEnd, previous, path, visited);
+        bfs(gStart, gEnd, previous, steps, visited);
 
         std::cout << "Danh sach cac dinh da duyet theo thu tu:" << std::endl;
-        for (int i = 0; i < path.size(); i++)
-            std::cout << path[i] << " ";
+        for (int i = 0; i < steps.size(); i++)
+            std::cout << steps[i] << " ";
         std::cout << std::endl;
 
-        route = backtrace(gStart, gEnd, previous);
-        if (route.back() == gStart) {
+        std::vector<int> path;
+        path = backtrace(gStart, gEnd, previous);
+        if (path.back() == gStart) {
             std::cout << "Duong di theo kieu nguoc:" << std::endl;
-            for (int i = 0; i < route.size(); i++) {
-                std::cout << route[i];
-                if (i < route.size() - 1)
+            for (int i = 0; i < path.size(); i++) {
+                std::cout << path[i];
+                if (i < path.size() - 1)
                     std::cout << " <- ";
             }
             std::cout << std::endl;
@@ -207,14 +207,14 @@ public:
 
     void find_connected_by_dfs() {
         std::vector<std::vector<int> > cp;
-        std::vector<bool> visited(gVertices, false);
+        std::vector<bool> visited(gNumVertices, false);
 
-        for (int i = 0; i < gVertices; i++) {
+        for (int i = 0; i < gNumVertices; i++) {
             if (!visited[i]) {
+                std::vector<int> steps;
                 std::vector<int> path;
-                std::vector<int> route;
-                dfs(i, -1, visited, path, route);
-                cp.push_back(path);
+                dfs(i, -1, visited, steps, path);
+                cp.push_back(steps);
             }
         }
 
@@ -229,16 +229,16 @@ public:
 
     void find_connected_by_bfs() {
         std::vector<std::vector<int> > cp;
-        std::vector<bool> visited(gVertices, false);
+        std::vector<bool> visited(gNumVertices, false);
 
-        for (int i = 0; i < gVertices; i++) {
+        for (int i = 0; i < gNumVertices; i++) {
             if (!visited[i]) {
+                std::vector<int> steps;
                 std::vector<int> path;
-                std::vector<int> route;
-                std::vector<int> previous(gVertices, -1);
+                std::vector<int> previous(gNumVertices, -1);
 
-                bfs(i, -1, previous, path, visited);
-                cp.push_back(path);
+                bfs(i, -1, previous, steps, visited);
+                cp.push_back(steps);
             }
         }
 
