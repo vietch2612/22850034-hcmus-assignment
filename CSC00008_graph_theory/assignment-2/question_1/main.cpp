@@ -92,8 +92,8 @@ class AdjacencyMatrix {
         return false;
     }
 
-    void bfs(int start, std::vector<int> &previous, std::vector<int> &path,
-             std::vector<bool> &visited) {
+    void bfs(int start, int end, std::vector<int> &previous,
+             std::vector<int> &path, std::vector<bool> &visited) {
         std::queue<int> my_queue;
 
         my_queue.push(start);
@@ -107,6 +107,9 @@ class AdjacencyMatrix {
 
             visited[u] = true;
             path.push_back(u);
+
+            if ((u == end) && (end >= 0))
+                return;
 
             for (int i = 0; i < gVertices; i++) {
                 if ((gMatrix[u][i] != 0) && (!visited[i])) {
@@ -181,21 +184,25 @@ public:
         std::vector<int> previous(gVertices, -1);
         std::vector<bool> visited(gVertices, false);
 
-        bfs(gStart, previous, path, visited);
+        bfs(gStart, gEnd, previous, path, visited);
 
-        std::cout << "Danh sach cac dinh da vieng tham:" << std::endl;
+        std::cout << "Danh sach cac dinh da duyet theo thu tu:" << std::endl;
         for (int i = 0; i < path.size(); i++)
             std::cout << path[i] << " ";
         std::cout << std::endl;
 
-        std::cout << "Duong di theo kieu nguoc:" << std::endl;
         route = backtrace(gStart, gEnd, previous);
-        for (int i = 0; i < route.size(); i++) {
-            std::cout << route[i];
-            if (i < route.size() - 1)
-                std::cout << " <- ";
+        if (route.back() == gStart) {
+            std::cout << "Duong di theo kieu nguoc:" << std::endl;
+            for (int i = 0; i < route.size(); i++) {
+                std::cout << route[i];
+                if (i < route.size() - 1)
+                    std::cout << " <- ";
+            }
+            std::cout << std::endl;
+        } else {
+            std::cout << "Khong tim thay duong" << std::endl;
         }
-        std::cout << std::endl;
     }
 
     void find_connected_by_dfs() {
@@ -230,7 +237,7 @@ public:
                 std::vector<int> route;
                 std::vector<int> previous(gVertices, -1);
 
-                bfs(i, previous, path, visited);
+                bfs(i, -1, previous, path, visited);
                 cp.push_back(path);
             }
         }
