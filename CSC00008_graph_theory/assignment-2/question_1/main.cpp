@@ -108,11 +108,11 @@ class AdjacencyMatrix {
             visited[u] = true;
             steps.push_back(u);
 
-            if ((u == end) && (end >= 0))
+            if (u == end && end >= 0)
                 return;
 
             for (int i = 0; i < gNumVertices; i++) {
-                if ((gMatrix[u][i] != 0) && (!visited[i])) {
+                if (gMatrix[u][i] != 0 && !visited[i]) {
                     my_queue.push(i);
                     if (previous[i] == -1)
                         previous[i] = u;
@@ -138,16 +138,15 @@ public:
     bool is_undirected() { return gIsSyncmetric; }
 
     bool has_loop() {
-        for (int i = 0; (i < gNumVertices) && (gMatrix[i][i] != 0); i++)
+        for (int i = 0; i < gNumVertices && gMatrix[i][i] != 0; i++)
             return true;
         return false;
     }
 
     bool has_multiple_edges() {
         for (int i = 0; i < gNumVertices; i++)
-            for (int j = 0; j < gNumVertices; j++)
-                if (gMatrix[i][j] > 1)
-                    return true;
+            for (int j = 0; j < gNumVertices && gMatrix[i][j] > 1; j++)
+                return true;
         return false;
     }
 
@@ -206,7 +205,7 @@ public:
     }
 
     void find_connected_by_dfs() {
-        std::vector<std::vector<int> > cp;
+        std::vector<std::vector<int> > cp; // connected components
         std::vector<bool> visited(gNumVertices, false);
 
         for (int i = 0; i < gNumVertices; i++) {
