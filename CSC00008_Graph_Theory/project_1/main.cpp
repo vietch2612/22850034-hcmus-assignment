@@ -8,15 +8,14 @@
 
 class AdjacencyMatrix {
     int gNumVertices;
-    int **gMatrix;
+    std::vector<std::vector<int> > gMatrix;
     int gStart;
     int gEnd;
     int gIsSyncmetric;
 
-    void load_adjacency_matrix_from_file(std::string file_name) {
-        std::ifstream file(file_name);
+    void read_adjacency_list_from_file(std::string fileName) {
+        std::ifstream file(fileName);
 
-        // Exit early if the file is not exist
         if (!file.good()) {
             std::cout << "Input file is not exist!" << std::endl;
             std::exit(1);
@@ -25,6 +24,7 @@ class AdjacencyMatrix {
         if (file.is_open()) {
             std::string line;
             for (int i = 0; std::getline(file, line); i++) {
+                // Get the number of vertices in the first line
                 if (i == 0) {
                     int n = atoi(line.c_str());
                     if (n <= 2) {
@@ -34,25 +34,21 @@ class AdjacencyMatrix {
                         exit(1);
                     }
                     gNumVertices = n;
-                    gMatrix = new int *[gNumVertices];
-                }
-
-                if (i == 1) {
-                    /* gStart = line[0] - '0'; */
-                    /* gEnd = line[2] - '0'; */
-                    std::string delimiter = " ";
+                    for (int i = 0; i < gNumVertices; i++) {
+                        std::vector<int> row(gNumVertices, 0);
+                        gMatrix.push_back(row);
+                    }
                     continue;
                 }
 
-                int k = 0;
-                int row_number = i - 2;
-
-                gMatrix[row_number] = new int[gNumVertices];
-
-                for (int j = 0; j < line.length(); j++) {
+                // Insert value into the matrix by row number = i-1
+                // Because the first row is number of vertices
+                // If the character != space -> convert to int then push to the
+                // array
+                for (int j = 2; j < line.length(); j++) {
                     if (line[j] != ' ') {
-                        gMatrix[row_number][k] = line[j] - '0';
-                        k++;
+                        int length = line[j] - '0';
+                        gMatrix[i - 1][length] = 1;
                     }
                 }
             }
@@ -61,34 +57,8 @@ class AdjacencyMatrix {
     }
 
     bool dfs(int start, int end, std::vector<bool> &visited,
-             std::vector<int> &steps, std::vector<int> &path) {
+             std::vector<int> &path, std::vector<std::vector<int> > g) {
         visited[start] = true;
-        steps.push_back(start);
-        path.push_back(start);
-
-        if (start == end && end >= 0)
-            return true;
-
-        for (int i = 0; i < gNumVertices; i++) {
-            if (gMatrix[start][i]) {
-                if (visited[i]) {
-                    continue;
-                }
-                if (dfs(i, end, visited, steps, path))
-                    return true;
-                else
-                    path.pop_back();
-            }
-        }
-
-        return false;
-    }
-
-    bool dfs2(int start, int end, std::vector<bool> &visited,
-              std::vector<int> &steps, std::vector<int> &path,
-              std::vector<std::vector<int> > g) {
-        visited[start] = true;
-        steps.push_back(start);
         path.push_back(start);
 
         if (start == end && end >= 0)
@@ -99,7 +69,7 @@ class AdjacencyMatrix {
                 if (visited[i]) {
                     continue;
                 }
-                if (dfs(i, end, visited, steps, path))
+                if (dfs(i, end, visited, path, g))
                     return true;
                 else
                     path.pop_back();
@@ -109,46 +79,38 @@ class AdjacencyMatrix {
         return false;
     }
 
-    bool is_strong() {
-        std::cout << "Checking if this graph is strongly connected!"
-                  << std::endl;
-        for (int i = 0; i < gNumVertices; i++)
-            for (int j = 0; j < gNumVertices; j++) {
-                std::vector<bool> visited(gNumVertices, false);
-                std::vector<int> steps;
-                std::vector<int> path;
-                if (!dfs(i, j, visited, steps, path)) {
-                    std::cout << "Can not find from " << i << " to " << j
-                              << " -> Not strongly connected" << std::endl;
-                    return false;
-                }
-            }
-        return true;
+    int count_number_of_strong_connected(std::vector<std::vector<int> > g) {
+        int count = 0;
+        for (int i = 0; i < gNumVertices; i++) {
+            std::vector<bool> visited(gNumVertices, false);
+            std::vector<int> path;
+            dfs(i, -1, visited, path, g);
+            if (find(visited.begin(), visited.end(), false) == visited.end())
+                count++;
+        }
+        return count;
     }
 
     bool is_weak(std::vector<std::vector<int> > g) {
-        std::cout << "Checking if this graph is weekly connected!" << std::endl;
         for (int i = 0; i < gNumVertices; i++)
             for (int j = 0; j < gNumVertices; j++) {
                 std::vector<bool> visited(gNumVertices, false);
-                std::vector<int> steps;
                 std::vector<int> path;
-                if (!dfs2(i, j, visited, steps, path, g)) {
-                    std::cout << "Can not find from " << i << " to " << j
-                              << std::endl;
+                if (!dfs(i, j, visited, path, g)) {
                     return false;
                 }
             }
         return true;
     }
 
-    std::vector<std::vector<int> > convert() {
+    std::vector<std::vector<int> >
+    convert_to_undirected(std::vector<std::vector<int> > g) {
         std::vector<int> row(gNumVertices, 0);
         std::vector<std::vector<int> > new_g(gNumVertices, row);
 
         for (int i = 0; i < gNumVertices; i++) {
             for (int j = 0; j < gNumVertices; j++) {
-                if (gMatrix[i][j] == 1 || gMatrix[j][i] == 1) {
+                if (g[i][j] == 1 || g[j][i] == 1) {
                     new_g[i][j] = 1;
                     new_g[j][i] = 1;
                 }
@@ -158,24 +120,113 @@ class AdjacencyMatrix {
         return new_g;
     }
 
+    void find_conponent(int u, int discoveries[], int low_link[],
+                        std::stack<int> &stack, bool stack_items[],
+                        std::vector<std::vector<int> > &cps) {
+        static int time = 0;
+        discoveries[u] = low_link[u] = ++time;
+        stack.push(u);
+        stack_items[u] = true;
+
+        for (int v = 0; v < gNumVertices; v++) {
+            if (gMatrix[u][v]) {
+                if (discoveries[v] == -1) {
+                    find_conponent(v, discoveries, low_link, stack, stack_items,
+                                   cps);
+                    low_link[u] = min(low_link[u], low_link[v]);
+                } else if (stack_items[v]) {
+                    low_link[u] = min(low_link[u], discoveries[v]);
+                }
+            }
+        }
+
+        int popped_item = 0;
+        if (low_link[u] == discoveries[u]) {
+            std::vector<int> cp;
+            while (stack.top() != u) {
+                popped_item = stack.top();
+                cp.push_back(popped_item);
+                stack_items[popped_item] = false;
+                stack.pop();
+            }
+            popped_item = stack.top();
+            cp.push_back(popped_item);
+            cps.push_back(cp);
+            stack_items[popped_item] = false;
+            stack.pop();
+        }
+    }
+
+    void sccs() {
+        int discoveries[gNumVertices];
+        int low_link[gNumVertices];
+        bool stack_items[gNumVertices];
+        std::stack<int> stack;
+        std::vector<std::vector<int> > cps;
+
+        for (int i = 0; i < gNumVertices; i++) {
+            discoveries[i] = -1;
+            low_link[i] = -1;
+            stack_items[i] = false;
+        }
+
+        for (int i = 0; i < gNumVertices; i++)
+            if (discoveries[i] == -1)
+                find_conponent(i, discoveries, low_link, stack, stack_items,
+                               cps);
+
+        for (int i = 0; i < cps.size(); i++) {
+            std::cout << "Thanh phan lien thong manh " << i + 1 << ": ";
+            for (int j = 0; j < cps[i].size(); j++) {
+                std::cout << cps[i][j];
+                if (j < cps[i].size() - 1)
+                    std::cout << ", ";
+            }
+            std::cout << std::endl;
+        }
+    }
+
+    int min(int a, int b) {
+        if (a < b)
+            return a;
+        return b;
+    };
+
 public:
     AdjacencyMatrix(std::string file_name) {
-        load_adjacency_matrix_from_file(file_name);
+        read_adjacency_list_from_file(file_name);
     }
 
     void declare_type_of_graph() {
-        if (is_strong())
-            std::cout << "Strong" << std::endl;
-        else if (is_weak(convert()))
-            std::cout << "Week" << std::endl;
+        int count = count_number_of_strong_connected(gMatrix);
+        if (count == gNumVertices)
+            std::cout << "Do thi lien thong manh." << std::endl;
+        else if (count > 0)
+            std::cout << "Do thi lien thong tung phan" << std::endl;
+        else if (is_weak(gMatrix))
+            std::cout << "Do thi lien thong yeu" << std::endl;
         else
-            std::cout << "TBD" << std::endl;
+            std::cout << "Do thi khong lien thong" << std::endl;
     }
+
+    void print_graph() {
+        for (int i = 0; i < gNumVertices; i++) {
+            for (int j = 0; j < gNumVertices; j++) {
+                std::cout << gMatrix[i][j] << " ";
+            }
+            std::cout << std::endl;
+        }
+        std::cout << std::endl;
+    }
+
+    void find_connected_components() { sccs(); }
 };
 
 int main() {
     AdjacencyMatrix AM("input.txt");
 
+    /* AM.print_graph(); */
     AM.declare_type_of_graph();
+    AM.find_connected_components();
     return 0;
 }
