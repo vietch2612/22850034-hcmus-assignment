@@ -89,6 +89,7 @@ class AdjacencyMatrix {
     }
 
     bool is_weak(std::vector<std::vector<int> > g) {
+        g = convert_to_undirected(g);
         for (int i = 0; i < gNumVertices; i++)
             for (int j = 0; j < gNumVertices; j++) {
                 std::vector<bool> visited(gNumVertices, false);
@@ -153,7 +154,35 @@ class AdjacencyMatrix {
         }
     }
 
-    void sccs() {
+    int min(int a, int b) {
+        if (a < b)
+            return a;
+        return b;
+    };
+
+public:
+    AdjacencyMatrix(std::string file_name) {
+        read_adjacency_list_from_file(file_name);
+    }
+
+    void print_type_of_graph() {
+        int count = count_number_of_strong_connected(gMatrix);
+        if (count == gNumVertices) {
+            std::cout << "Do thi lien thong manh." << std::endl;
+            return;
+        }
+        if (count > 0) {
+            std::cout << "Do thi lien thong tung phan" << std::endl;
+            return;
+        }
+        if (is_weak(gMatrix)) {
+            std::cout << "Do thi lien thong yeu" << std::endl;
+            return;
+        }
+        std::cout << "Do thi khong lien thong" << std::endl;
+    }
+
+    void print_connected_components() {
         int discoveries[gNumVertices];
         int low_link[gNumVertices];
         bool stack_items[gNumVertices];
@@ -182,47 +211,47 @@ class AdjacencyMatrix {
         }
     }
 
-    int min(int a, int b) {
-        if (a < b)
-            return a;
-        return b;
-    };
-
-public:
-    AdjacencyMatrix(std::string file_name) {
-        read_adjacency_list_from_file(file_name);
+    bool is_syncmetric() {
+        for (int i = 0; i < gNumVertices; i++)
+            for (int j = i; j < gNumVertices; j++)
+                if (gMatrix[i][j] != gMatrix[j][i])
+                    return false;
+        return true;
     }
 
-    void declare_type_of_graph() {
-        int count = count_number_of_strong_connected(gMatrix);
-        if (count == gNumVertices)
-            std::cout << "Do thi lien thong manh." << std::endl;
-        else if (count > 0)
-            std::cout << "Do thi lien thong tung phan" << std::endl;
-        else if (is_weak(gMatrix))
-            std::cout << "Do thi lien thong yeu" << std::endl;
-        else
-            std::cout << "Do thi khong lien thong" << std::endl;
+    bool has_loop() {
+        for (int i = 0; i < gNumVertices && gMatrix[i][i] != 0; i++)
+            return true;
+        return false;
     }
 
-    void print_graph() {
-        for (int i = 0; i < gNumVertices; i++) {
-            for (int j = 0; j < gNumVertices; j++) {
-                std::cout << gMatrix[i][j] << " ";
-            }
-            std::cout << std::endl;
-        }
-        std::cout << std::endl;
+    bool has_multiple_edges() {
+        for (int i = 0; i < gNumVertices; i++)
+            for (int j = 0; j < gNumVertices && gMatrix[i][j] > 1; j++)
+                return true;
+        return false;
     }
-
-    void find_connected_components() { sccs(); }
 };
 
 int main() {
     AdjacencyMatrix AM("input.txt");
 
-    /* AM.print_graph(); */
-    AM.declare_type_of_graph();
-    AM.find_connected_components();
+    if (AM.is_syncmetric()) {
+        std::cout << "Khong duoc cai dat do thi vo huong." << std::endl;
+        return 1;
+    }
+
+    if (AM.has_loop()) {
+        std::cout << "Khong duoc cai dat do thi co canh khuyen." << std::endl;
+        return 1;
+    }
+
+    if (AM.has_multiple_edges()) {
+        std::cout << "Khong duoc cai dat do thi co canh boi." << std::endl;
+        return 1;
+    }
+
+    AM.print_type_of_graph();
+    AM.print_connected_components();
     return 0;
 }
