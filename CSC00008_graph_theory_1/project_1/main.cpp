@@ -9,8 +9,6 @@
 class AdjacencyMatrix {
     int gNumVertices;
     std::vector<std::vector<int> > gMatrix;
-    int gStart;
-    int gEnd;
     int gIsSyncmetric;
 
     void read_adjacency_list_from_file(std::string fileName) {
@@ -75,7 +73,6 @@ class AdjacencyMatrix {
                     path.pop_back();
             }
         }
-
         return false;
     }
 
@@ -116,13 +113,12 @@ class AdjacencyMatrix {
                 }
             }
         }
-
         return new_g;
     }
 
-    void find_conponent(int u, int discoveries[], int low_link[],
-                        std::stack<int> &stack, bool stack_items[],
-                        std::vector<std::vector<int> > &cps) {
+    void dfs_find_conponent(int u, int discoveries[], int low_link[],
+                            std::stack<int> &stack, bool stack_items[],
+                            std::vector<std::vector<int> > &cps) {
         static int time = 0;
         discoveries[u] = low_link[u] = ++time;
         stack.push(u);
@@ -131,8 +127,8 @@ class AdjacencyMatrix {
         for (int v = 0; v < gNumVertices; v++) {
             if (gMatrix[u][v]) {
                 if (discoveries[v] == -1) {
-                    find_conponent(v, discoveries, low_link, stack, stack_items,
-                                   cps);
+                    dfs_find_conponent(v, discoveries, low_link, stack,
+                                       stack_items, cps);
                     low_link[u] = min(low_link[u], low_link[v]);
                 } else if (stack_items[v]) {
                     low_link[u] = min(low_link[u], discoveries[v]);
@@ -172,8 +168,8 @@ class AdjacencyMatrix {
 
         for (int i = 0; i < gNumVertices; i++)
             if (discoveries[i] == -1)
-                find_conponent(i, discoveries, low_link, stack, stack_items,
-                               cps);
+                dfs_find_conponent(i, discoveries, low_link, stack, stack_items,
+                                   cps);
 
         for (int i = 0; i < cps.size(); i++) {
             std::cout << "Thanh phan lien thong manh " << i + 1 << ": ";
