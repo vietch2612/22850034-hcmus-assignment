@@ -1,4 +1,3 @@
-#include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <ostream>
@@ -6,10 +5,11 @@
 #include <string>
 #include <vector>
 
+#define UNVISITED -1
+
 class AdjacencyMatrix {
     int gNumVertices;
     std::vector<std::vector<int> > gMatrix;
-    int gIsSyncmetric;
 
     void read_adjacency_list_from_file(std::string fileName) {
         std::ifstream file(fileName);
@@ -32,7 +32,7 @@ class AdjacencyMatrix {
                         exit(1);
                     }
                     gNumVertices = n;
-                    for (int i = 0; i < gNumVertices; i++) {
+                    for (int j = 0; j < gNumVertices; j++) {
                         std::vector<int> row(gNumVertices, 0);
                         gMatrix.push_back(row);
                     }
@@ -82,8 +82,12 @@ class AdjacencyMatrix {
             std::vector<bool> visited(gNumVertices, false);
             std::vector<int> path;
             dfs(i, -1, visited, path, g);
-            if (find(visited.begin(), visited.end(), false) == visited.end())
-                count++;
+
+            for (int j = 0; j < visited.size(); j++)
+                if (visited[j] == false)
+                    goto cnt;
+            count++;
+        cnt:;
         }
         return count;
     }
@@ -117,47 +121,46 @@ class AdjacencyMatrix {
         return new_g;
     }
 
-    void dfs_find_conponent(int u, int discoveries[], int low_link[],
-                            std::stack<int> &stack, bool stack_items[],
-                            std::vector<std::vector<int> > &cps) {
-        static int time = 0;
-        discoveries[u] = low_link[u] = ++time;
+    void dfs_find(int u, int ids[], int root[], std::stack<int> &stack,
+                  bool on_stack[], std::vector<std::vector<int> > &cps) {
         stack.push(u);
-        stack_items[u] = true;
+        on_stack[u] = true;
+        static int id = 0;
+        ids[u] = root[u] = id++;
 
         for (int v = 0; v < gNumVertices; v++) {
             if (gMatrix[u][v]) {
-                if (discoveries[v] == -1) {
-                    dfs_find_conponent(v, discoveries, low_link, stack,
-                                       stack_items, cps);
-                    low_link[u] = min(low_link[u], low_link[v]);
-                } else if (stack_items[v]) {
-                    low_link[u] = min(low_link[u], discoveries[v]);
+                if (ids[v] == UNVISITED) {
+                    dfs_find(v, ids, root, stack, on_stack, cps);
+                    root[u] = minimum(root[u], root[v]);
+                } else if (on_stack[v]) {
+                    root[u] = minimum(root[u], ids[v]);
                 }
             }
         }
 
-        int popped_item = 0;
-        if (low_link[u] == discoveries[u]) {
+        if (root[u] == ids[u]) {
             std::vector<int> cp;
             while (stack.top() != u) {
-                popped_item = stack.top();
+                int popped_item = stack.top();
                 cp.push_back(popped_item);
-                stack_items[popped_item] = false;
+                on_stack[popped_item] = false;
                 stack.pop();
             }
-            popped_item = stack.top();
+
+            int popped_item = stack.top();
+            on_stack[popped_item] = false;
+            stack.pop();
+
             cp.push_back(popped_item);
             cps.push_back(cp);
-            stack_items[popped_item] = false;
-            stack.pop();
         }
     }
 
-    int min(int a, int b) {
-        if (a < b)
-            return a;
-        return b;
+    int minimum(int x, int y) {
+        if (x < y)
+            return x;
+        return y;
     };
 
 public:
@@ -183,23 +186,24 @@ public:
     }
 
     void print_connected_components() {
-        int discoveries[gNumVertices];
-        int low_link[gNumVertices];
-        bool stack_items[gNumVertices];
+        int ids[gNumVertices];
+        int root[gNumVertices];
+        bool on_stack[gNumVertices];
         std::stack<int> stack;
         std::vector<std::vector<int> > cps;
 
         for (int i = 0; i < gNumVertices; i++) {
-            discoveries[i] = -1;
-            low_link[i] = -1;
-            stack_items[i] = false;
+            ids[i] = UNVISITED;
+            root[i] = UNVISITED;
+            on_stack[i] = false;
         }
 
+        // Find connected components and store it into 2d vector: cps
         for (int i = 0; i < gNumVertices; i++)
-            if (discoveries[i] == -1)
-                dfs_find_conponent(i, discoveries, low_link, stack, stack_items,
-                                   cps);
+            if (ids[i] == UNVISITED)
+                dfs_find(i, ids, root, stack, on_stack, cps);
 
+        // Print the connected components: cps to console
         for (int i = 0; i < cps.size(); i++) {
             std::cout << "Thanh phan lien thong manh " << i + 1 << ": ";
             for (int j = 0; j < cps[i].size(); j++) {
