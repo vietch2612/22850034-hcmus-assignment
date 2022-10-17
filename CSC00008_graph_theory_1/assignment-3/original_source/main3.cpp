@@ -128,8 +128,20 @@ void prim(AdjacencyMatrix AM, int source) {
     std::cout << "Trong so cua cay khung: " << total_weight << std::endl;
 };
 
+std::string get_char(int i) {
+    std::string d[] = {"A", "B", "C", "D", "E", "F", "G", "H", "I"};
+    return d[i];
+}
+
 std::vector<Edge> init_list_edges(AdjacencyMatrix AM) {
-    std::vector<std::vector<int> > g = AM.gMatrix;
+    // std::vector<std::vector<int> > g = AM.gMatrix;
+    std::vector<std::vector<int> > g = {
+    {0, 7, 6, 10, 15, 0, 0, 0, 0},  {7, 0, 13, 8, 0, 12, 0, 0, 0},
+    {6, 13, 0, 0, 9, 0, 0, 1, 0},   {10, 8, 0, 0, 19, 16, 17, 0, 0},
+    {15, 0, 9, 19, 0, 0, 11, 5, 0}, {0, 12, 0, 16, 0, 0, 14, 0, 18},
+    {0, 0, 0, 17, 11, 14, 0, 3, 2}, {0, 0, 1, 0, 5, 0, 3, 0, 4},
+    {0, 0, 0, 0, 0, 18, 2, 4, 0},
+};
     int m = AM.gNumVertices;
     std::vector<Edge> edges;
     int count = 0;
@@ -150,7 +162,7 @@ std::vector<Edge> init_list_edges(AdjacencyMatrix AM) {
 }
 
 void print_edge(Edge e) {
-    std::cout << e.w << " - " << e.v << ": " << e.weight << std::endl;
+    std::cout << get_char(e.w) << " - " << get_char(e.v) << ": " << e.weight << std::endl;
 }
 
 void sort_edges(std::vector<Edge> &edges) {
@@ -168,6 +180,8 @@ void sort_edges(std::vector<Edge> &edges) {
         }
     }
 }
+
+
 
 
 void kruskal(AdjacencyMatrix AM) {
@@ -189,7 +203,12 @@ void kruskal(AdjacencyMatrix AM) {
     int total_weight = 0;
     for (int k = 0; k < edges.size(); k++) {
         Edge e = edges[k];
+
+        std::cout << "Taking node: ";
+        print_edge(e);
+
         if (label[e.w] != label[e.v]) {
+        std::cout << "no: ";
             total_weight += e.weight;
             T[nT++] = e;
 
@@ -206,7 +225,7 @@ void kruskal(AdjacencyMatrix AM) {
     std::cout << "Tap canh cua cay khung:" << std::endl;
 
     for (int i = 0; i < n; i++) {
-        std::cout << T[i].w << " - " << T[i].v << ": " << T[i].weight
+        std::cout << get_char(T[i].w) << " - " << get_char(T[i].v) << ": " << T[i].weight
                   << std::endl;
     }
     std::cout << "Trong so cua cay khung: " << total_weight << std::endl;
@@ -215,17 +234,17 @@ void kruskal(AdjacencyMatrix AM) {
 int main() {
     AdjacencyMatrix AM("input.txt");
 
-    if (!AM.is_syncmetric()) {
-        std::cout << "Khong duoc cai dat do thi co huong." << std::endl;
-        return 1;
-    }
+    // if (!AM.is_syncmetric()) {
+    //     std::cout << "Khong duoc cai dat do thi co huong." << std::endl;
+    //     return 1;
+    // }
 
-    if (AM.has_loop()) {
-        std::cout << "Khong duoc cai dat do thi co canh khuyen." << std::endl;
-        return 1;
-    }
+    // if (AM.has_loop()) {
+    //     std::cout << "Khong duoc cai dat do thi co canh khuyen." << std::endl;
+    //     return 1;
+    // }
 
-    prim(AM, 0);
+    // prim(AM, 0);
     kruskal(AM);
 
     return 0;
