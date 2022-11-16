@@ -1,0 +1,15 @@
+/Users/vietcao/Documents/hcm-assignment/introduction_to_programing/hello_world/bin/Debug/net7.0/hello_world
+/Users/vietcao/Documents/hcm-assignment/introduction_to_programing/hello_world/bin/Debug/net7.0/hello_world.deps.json
+/Users/vietcao/Documents/hcm-assignment/introduction_to_programing/hello_world/bin/Debug/net7.0/hello_world.runtimeconfig.json
+/Users/vietcao/Documents/hcm-assignment/introduction_to_programing/hello_world/bin/Debug/net7.0/hello_world.dll
+/Users/vietcao/Documents/hcm-assignment/introduction_to_programing/hello_world/bin/Debug/net7.0/hello_world.pdb
+/Users/vietcao/Documents/hcm-assignment/introduction_to_programing/hello_world/obj/Debug/net7.0/hello_world.csproj.AssemblyReference.cache
+/Users/vietcao/Documents/hcm-assignment/introduction_to_programing/hello_world/obj/Debug/net7.0/hello_world.GeneratedMSBuildEditorConfig.editorconfig
+/Users/vietcao/Documents/hcm-assignment/introduction_to_programing/hello_world/obj/Debug/net7.0/hello_world.AssemblyInfoInputs.cache
+/Users/vietcao/Documents/hcm-assignment/introduction_to_programing/hello_world/obj/Debug/net7.0/hello_world.AssemblyInfo.cs
+/Users/vietcao/Documents/hcm-assignment/introduction_to_programing/hello_world/obj/Debug/net7.0/hello_world.csproj.CoreCompileInputs.cache
+/Users/vietcao/Documents/hcm-assignment/introduction_to_programing/hello_world/obj/Debug/net7.0/hello_world.dll
+/Users/vietcao/Documents/hcm-assignment/introduction_to_programing/hello_world/obj/Debug/net7.0/refint/hello_world.dll
+/Users/vietcao/Documents/hcm-assignment/introduction_to_programing/hello_world/obj/Debug/net7.0/hello_world.pdb
+/Users/vietcao/Documents/hcm-assignment/introduction_to_programing/hello_world/obj/Debug/net7.0/hello_world.genruntimeconfig.cache
+/Users/vietcao/Documents/hcm-assignment/introduction_to_programing/hello_world/obj/Debug/net7.0/ref/hello_world.dll
