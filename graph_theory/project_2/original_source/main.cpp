@@ -1,6 +1,7 @@
 #include <fstream>
 #include <iostream>
 #include <ostream>
+#include <sstream>
 #include <string>
 #include <vector>
 
@@ -77,9 +78,11 @@ class AdjacencyMatrix {
 
 public:
     AdjacencyMatrix(std::string file_name) {
+        // Read the matrix from file
         read_adjacency_list_from_file(file_name);
     }
 
+    // Verify that the graph is undirected or directed
     bool is_syncmetric() {
         for (int i = 0; i < gNumVertices; i++)
             for (int j = i; j < gNumVertices; j++)
@@ -91,12 +94,14 @@ public:
         return true;
     }
 
+    // Verify that the graph has a loop or not
     bool has_loop() {
         for (int i = 0; i < gNumVertices && gMatrix[i][i] != 0; i++)
             return true;
         return false;
     }
 
+    // Verify that the graph has multiple edges or not
     bool has_multiple_edges() {
         for (int i = 0; i < gNumVertices; i++)
             for (int j = 0; j < gNumVertices && gMatrix[i][j] > 1; j++)
@@ -104,6 +109,7 @@ public:
         return false;
     }
 
+    // Sort the list of vertices by total degrees
     void sort_by_degrees(std::vector<Vertices> &degrees) {
         for (int i = 0; i < gNumVertices; i++) {
             for (int j = 0; j < gNumVertices; j++) {
@@ -121,38 +127,78 @@ public:
         }
     }
 
+    // Return the index of a uncolored vertice with highest degrees
+    int
+    get_highest_available_degrees_by_vertices(std::vector<Vertices> &degrees) {
+        for (int i = 0; i < degrees.size(); i++)
+            if (degrees[i].color_index == -1)
+                return degrees[i].index;
+        return -1;
+    }
+
+    // Update the color on the list from given vertice and color index
+    void update_color(std::vector<Vertices> &degrees, int v, int color) {
+        for (int i = 0; i < degrees.size(); i++)
+            if (degrees[i].index == v)
+                degrees[i].color_index = color;
+    }
+
+    // A list of colors.
+    // For printing color name to console
     std::string get_color(int i) {
-        std::string colors[] = {"Red",  "Green", "Blue",  "Yellow"};
+        std::string colors[] = {"Red", "Green", "Blue", "Yellow"};
         return colors[i];
     }
 
     void coloring() {
+        // A list of vertices with degrees (index, number_of_degress, color)
         std::vector<Vertices> degrees = gDegrees;
         sort_by_degrees(degrees);
 
+        // Init a list of available colors from 0 - > 3
         std::vector<int> colors;
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 4; i++)
             colors.push_back(i);
+
+        // Total number are used
         int n_colors = 0;
 
-        for (int i = 0; i < gNumVertices; i++) {
-            if (degrees[i].color_index == -1) {
-                for (int j = 0; j < colors.size(); j++) {
-                    for (int k = 0; k < gNumVertices; k++)
-                        if (gMatrix[degrees[i].index][k] != 0)
-                            if (get_vertex_color(k, degrees) == j)
-                                goto next_color;
-                    degrees[i].color_index = j;
-                    if (j > n_colors)
-                        n_colors = j;
-                    goto next_vertice;
-                next_color:;
+        while (n_colors <= 4) {
+            // Get v is index of vertex in the sorted vertices has highest
+            // degrees and hasn't been colored
+            int u = get_highest_available_degrees_by_vertices(degrees);
+
+            // If u == -1 means all vertices are colored
+            // Stop the algorithm
+            if (u == -1)
+                break;
+
+            // Set color
+            update_color(degrees, u, n_colors);
+
+            // Color all not connected vertices with color = n_colors
+            for (int j = 0; j < gNumVertices; j++) {
+                // Find uncolored and not connected with current u
+                if (gMatrix[u][j] == 0 && get_vertex_color(j, degrees) == -1) {
+                    // Check if the vertice has connected with other vertices
+                    // which has color = current n_colors
+                    bool has_connected = true;
+                    for (int m = 0; m < gNumVertices; m++) {
+                        if (gMatrix[j][m] != 0 &&
+                            get_vertex_color(m, degrees) == n_colors) {
+                            has_connected = false;
+                            break;
+                        }
+                    }
+                    if (has_connected)
+                        update_color(degrees, j, n_colors);
                 }
             }
-        next_vertice:;
+
+            n_colors++;
         }
 
-        std::cout << "So luong mau su dung: " << n_colors + 1 << std::endl;
+        std::cout << "So luong mau su dung: " << n_colors << std::endl;
         std::cout << "(Dinh, Mau): ";
         for (int i = 0; i < gNumVertices; i++) {
             std::cout << "(" << degrees[i].index << ","
