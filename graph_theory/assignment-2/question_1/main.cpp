@@ -159,7 +159,7 @@ public:
         if (dfs(gStart, gEnd, visited, steps, path))
             is_found = true;
 
-        std::cout << "Danh sach cac dinh duyet theo thu tu:" << std::endl;
+        std::cout << "DFS: Danh sach cac dinh duyet theo thu tu:" << std::endl;
         for (int i = 0; i < steps.size(); i++)
             std::cout << steps[i] << " ";
         std::cout << std::endl;
@@ -184,7 +184,7 @@ public:
 
         bfs(gStart, gEnd, previous, steps, visited);
 
-        std::cout << "Danh sach cac dinh da duyet theo thu tu:" << std::endl;
+        std::cout << "BFS: Danh sach cac dinh da duyet theo thu tu:" << std::endl;
         for (int i = 0; i < steps.size(); i++)
             std::cout << steps[i] << " ";
         std::cout << std::endl;
@@ -267,6 +267,8 @@ int main() {
     AM.find_path_by_dfs();
     if (AM.is_undirected())
         AM.find_connected_by_dfs();
+
+    std::cout << "---------------" << std::endl;
 
     AM.find_path_by_bfs();
     if (AM.is_undirected())
