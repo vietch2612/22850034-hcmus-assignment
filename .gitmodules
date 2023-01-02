@@ -1,0 +1,3 @@
+[submodule "web-application"]
+	path = web-application
+	url = https://github.com/vietch2612/web-application.git
