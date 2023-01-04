@@ -1,5 +1,5 @@
 // Sort the array of students by their age, in ascending order.
-var students = [{
+let students = [{
     firstName: "Viet",
     lastName: "Cao",
     age: 31,
