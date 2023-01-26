@@ -108,7 +108,7 @@ class GraphData:
             ('Mehadia', 75),
             ('Craiova', 120)],
         'Eforie': [
-            ('Hirsova', 151)],
+            ('Hirsova', 86)],
         'Fagaras': [
             ('Sibiu', 99),
             ('Bucharest', 211)],
