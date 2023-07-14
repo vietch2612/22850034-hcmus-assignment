@@ -5,8 +5,11 @@ My assignments during my time studying at the University of Natural Sciences, Vi
 - [x] Environment & Digital Marketing
 - [x] Human & Environment
 - [x] Introduction to Economic
-- [] Introduction to Programing
-- [] Software Testing
-- [] Probability Statistics
-- [] Web Application
-- [] Artificial Intelligence Fundamental
+- [x] Introduction to Sofware Technology
+- [x] Software Testing
+- [x] Probability Statistics
+- [x] Web Application
+- [x] Artificial Intelligence Fundamental
+- [ ] Information Systems Analysis
+- [ ] Software Design
+- [ ] Project - Advanced Software Design
