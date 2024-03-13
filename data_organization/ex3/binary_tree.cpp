@@ -5,11 +5,14 @@ struct NODE {
   NODE *left, *right;
 };
 
+// Sum using recursive
 int sumPos(NODE* root) {
   if (root == NULL) return 0;
   return root->data + sumPos(root->left) + sumPos(root->right);
 };
 
+// Support method
+// To create a new node faster
 NODE* newNode(int value) {
   NODE* node = new NODE();
   node->data = value;
@@ -17,6 +20,7 @@ NODE* newNode(int value) {
 }
 
 int main() {
+  // Create a new node to test
   NODE* root = newNode(8);
   root->left = newNode(4);
   root->right = newNode(1);

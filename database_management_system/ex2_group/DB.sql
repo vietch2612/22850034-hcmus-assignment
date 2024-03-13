@@ -109,12 +109,24 @@ CREATE TABLE qtrinhmuon (
 INSERT INTO docgia (ho, tenlot, ten, ngaysinh)
 VALUES ('Nguyen', 'Van', 'A', '1990-01-01'),
        ('Tran', 'Thi', 'B', '1995-02-02'),
+       ('Tran', 'Thi', 'C', '1995-02-02'),
+       ('Tran', 'Thi', 'D', '1995-02-02'),
+       ('Tran', 'Thi', 'E', '1995-02-02'),
+       ('Tran', 'Thi', 'F', '1995-02-02'),
+       ('Tran', 'Thi', 'G', '1995-02-02'),
+       ('Tran', 'Thi', 'H', '1995-02-02'),
        ('Le', 'Van', 'C', '1998-03-03');
 
 -- Seeds data for nguoilon table
 INSERT INTO nguoilon (ma_docgia, sonha, duong, quan, dienthoai, han_sd)
 VALUES (1, '123', 'Nguyen Van Cu', 'Quan 5', '0123456789', '2022-01-01'),
-       (2, '456', 'Le Loi', 'Quan 1', '0987654321', '2023-02-02');
+       (2, '456', 'Le Loi', 'Quan 1', '0987654321', '2023-02-02'),
+       (3, '456', 'Le Loi', 'Quan 1', '0987654321', '2023-02-02'),
+       (4, '456', 'Le Loi', 'Quan 1', '0987654321', '2023-02-02'),
+       (5, '456', 'Le Loi', 'Quan 1', '0987654321', '2023-02-02'),
+       (7, '456', 'Le Loi', 'Quan 1', '0987654321', '2023-02-02'),
+       (8, '456', 'Le Loi', 'Quan 1', '0987654321', '2023-02-02'),
+       (9, '456', 'Le Loi', 'Quan 1', '0987654321', '2023-02-02');
 -- Seeds data for treem table
 INSERT INTO treem (ma_docgia, ma_docgia_nguoilon)
 VALUES (3, 1);
@@ -127,15 +139,33 @@ VALUES ('Sach 1', 'Tac gia 1', 'Tom tat sach 1'),
 
 -- Seeds data for dausach table
 INSERT INTO dausach (isbn, ma_tuasach, ngonngu, bia, trangthai)
-VALUES ('ISBN1', 1, 'Tieng Viet', 'Bia sach 1', 'Moi'),
-       ('ISBN2', 2, 'Tieng Anh', 'Bia sach 2', 'Cu'),
-       ('ISBN3', 3, 'Tieng Viet', 'Bia sach 3', 'Moi');
+VALUES ('ISBN1', 1, 'Tieng Viet', 'Bia sach 1', 'Y'),
+       ('ISBN2', 2, 'Tieng Anh', 'Bia sach 2', 'Y'),
+       ('ISBN3', 3, 'Tieng Viet', 'Bia sach 3', 'Y');
 
 -- Seeds data for cuonsach table
 INSERT INTO cuonsach (isbn, tinhtrang)
-VALUES ('ISBN1', 'Tot'),
-       ('ISBN1', 'Tot'),
-       ('ISBN2', 'Cu');
+VALUES ('ISBN1', 'Y'),
+       ('ISBN1', 'Y'),
+       ('ISBN1', 'Y'),
+       ('ISBN1', 'Y'),
+       ('ISBN1', 'Y'),
+       ('ISBN1', 'Y'),
+       ('ISBN1', 'Y'),
+       ('ISBN1', 'Y'),
+       ('ISBN1', 'Y'),
+       ('ISBN2', 'Y'),
+       ('ISBN2', 'Y'),
+       ('ISBN2', 'Y'),
+       ('ISBN2', 'Y'),
+       ('ISBN2', 'Y'),
+       ('ISBN2', 'Y'),
+       ('ISBN2', 'Y'),
+       ('ISBN3', 'Y'),
+       ('ISBN3', 'Y'),
+       ('ISBN3', 'Y'),
+       ('ISBN3', 'Y'),
+       ('ISBN2', 'Y');
 
 -- Seeds data for dangky table
 INSERT INTO dangky (isbn, ma_docgia, ngay_dk, ghichu)
@@ -152,6 +182,9 @@ VALUES ('ISBN1', 1, 1, '2022-01-01', '2025-02-01'),
 -- Seeds data for qtrinhmuon table
 INSERT INTO qtrinhmuon (isbn, ma_cuonsach, ngay_muon, ma_DocGia, ngay_hethan, ngay_tra, tien_muon, tien_datra, tien_datcoc, ghichu)
 VALUES ('ISBN1', 1, '2022-01-01', 1, '2022-02-01', null, 100000, 50000, 0, 'Ghi chu 1'),
-       ('ISBN2', 2, '2023-02-02', 2, '2023-01-02', null, 150000, 100000, 0, 'Ghi chu 2'),
-       ('ISBN3', 3, '2024-03-03', 3, '2024-04-03', null, 200000, 150000, 0, 'Ghi chu 3');
+       ('ISBN1', 2, '2023-02-02', 1, '2023-01-02', null, 150000, 100000, 0, 'Ghi chu 2'),
+       ('ISBN1', 3, '2023-02-02', 1, '2023-01-02', null, 150000, 100000, 0, 'Ghi chu 2'),
+       ('ISBN1', 4, '2023-02-02', 1, '2023-01-02', null, 150000, 100000, 0, 'Ghi chu 2'),
+       ('ISBN1', 5, '2023-02-02', 1, '2023-01-02', null, 150000, 100000, 0, 'Ghi chu 2'),
+       ('ISBN2', 7, '2024-03-03', 3, '2024-04-03', null, 200000, 150000, 0, 'Ghi chu 3');
 GO
