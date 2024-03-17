@@ -34,8 +34,8 @@ class Bag {
         removeAt(i);
         break;
       }
-      reOrder();
     };
+    reOrder();
   }
 
   // Remove all
@@ -70,7 +70,7 @@ class Bag {
   // This way, it would take more time than the way I'm using in isEqual()
   bool isSubsetOf(Bag& anotherBag) {
     for (int i = 0; i < size; i++)
-      if (count(values[i] > anotherBag.count(values[i]))) return false;
+      if (count(values[i]) > anotherBag.count(values[i])) return false;
     return true;
   }
 
@@ -90,44 +90,70 @@ class Bag {
 int main() {
   Bag bag1;
   bag1.insert(1);
-  bag1.print();
   bag1.insert(2);
-  bag1.print();
   bag1.insert(1);
-  bag1.print();
   bag1.insert(3);
+  bag1.insert(3);
+  bag1.insert(5);
+  bag1.insert(5);
+  bag1.insert(7);
+  bag1.insert(7);
+  bag1.insert(7);
+  std::cout << "Tui 1: ";
   bag1.print();
-  bag1.removeAll(1);
+  std::cout << std::endl;
+
+  std::cout << "Them mot so 4: ";
+  bag1.insert(4);
   bag1.print();
-  bag1.insert(10);
+  std::cout << std::endl;
+
+  std::cout << "Xoa so 1: ";
+  bag1.remove(1);
   bag1.print();
+  std::cout << std::endl;
+
+  std::cout << "Xoa toan bo so 5: ";
+  bag1.removeAll(5);
+  bag1.print();
+  std::cout << std::endl;
+
+  std::cout << "So lan xuat hien cua so 1: " << bag1.count(1) << std::endl;
+  std::cout << "So lan xuat hien cua so 5: " << bag1.count(5) << std::endl;
+  std::cout << "So lan xuat hien cua so 7: " << bag1.count(7) << std::endl;
+  std::cout << std::endl;
 
   Bag bag2;
-  bag2.insert(4);
-  bag2.insert(5);
-  bag2.print();
-  bag2.insert(5);
-  bag2.print();
-  bag1.merge(bag2);
-  bag1.print();
-  std::cout << "5: " << bag1.count(5) << std::endl;
-
   Bag bag3;
-  bag3.insert(5);
-  bag3.insert(2);
-  bag3.insert(4);
-  bag3.insert(10);
-  bag3.insert(3);
-  bag3.insert(5);
+  bag2 = bag1;
+  bag3 = bag1;
+  bag3.remove(7);
+  std::cout << "Tui 1: ";
   bag1.print();
+  std::cout << "Tui 2: ";
   bag2.print();
+  std::cout << "Tui 3: ";
   bag3.print();
-  std::cout << bag1.isEqual(bag2) << std::endl;
-  std::cout << bag1.isEqual(bag3) << std::endl;
+  std::cout << "Tui 1 co bang tui 2 khong?: " << bag1.isEqual(bag2)
+            << std::endl;
+  std::cout << "Tui 1 co bang tui 3 khong?: " << bag1.isEqual(bag3)
+            << std::endl;
+  std::cout << "Tui 1 co co phai tui con cua 2 khong?: "
+            << bag1.isSubsetOf(bag2) << std::endl;
+  std::cout << "Tui 1 co co phai tui con cua 3 khong?: "
+            << bag1.isSubsetOf(bag3) << std::endl;
+  std::cout << "Tui 3 co co phai tui con cua 1 khong?: "
+            << bag3.isSubsetOf(bag1) << std::endl;
+  std::cout << std::endl;
 
   Bag bag4;
-  bag4.insert(2);
-  bag4.insert(5);
-  std::cout << "Is subset of?: " << bag4.isSubsetOf(bag1) << std::endl;
+  bag4.insert(8);
+  bag4.insert(20);
+  std::cout << "Tui 4: ";
+  bag4.print();
+  std::cout << "Tui 1 + tui 4 se la: ";
+  bag1.merge(bag4);
+  bag1.print();
+
   return 0;
 }

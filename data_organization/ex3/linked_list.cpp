@@ -30,7 +30,7 @@ int sumPosByIterative(NODE* head) {
   int total = 0;
   NODE* c = head;
   while (c != NULL) {
-    total += c->data;
+    total += c->data > 0 ? c->data : 0;
     c = c->next;
   }
 
@@ -40,16 +40,16 @@ int sumPosByIterative(NODE* head) {
 // Recursive
 int sumPosByRecursive(NODE* head) {
   if (head == NULL) return 0;
-  return head->data + sumPosByIterative(head->next);
+  return (head->data > 0 ? head->data : 0) + sumPosByIterative(head->next);
 }
 
 int main() {
   NODE* head = NULL;
   append(&head, 1);
   append(&head, 3);
-  append(&head, 3);
+  append(&head, -1);
   append(&head, 8);
-  append(&head, 2);
+  append(&head, -2);
   append(&head, 4);
   std::cout << "Tong (Su dung lap): " << sumPosByIterative(head) << std::endl;
   std::cout << "Tong (Su dung de quy): " << sumPosByRecursive(head)
