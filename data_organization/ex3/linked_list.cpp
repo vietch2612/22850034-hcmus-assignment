@@ -1,3 +1,4 @@
+#include <cmath>
 #include <iostream>
 
 struct NODE {
@@ -40,7 +41,7 @@ int sumPosByIterative(NODE* head) {
 // Recursive
 int sumPosByRecursive(NODE* head) {
   if (head == NULL) return 0;
-  return (head->data > 0 ? head->data : 0) + sumPosByIterative(head->next);
+  return (head->data > 0 ? head->data : 0) + sumPosByRecursive(head->next);
 }
 
 int main() {
