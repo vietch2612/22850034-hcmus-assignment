@@ -54,13 +54,17 @@ class Bag {
   }
 
   // Check if two bags are equal
-  bool isEqual(Bag& anotherBag) {
+  bool isEqual(Bag& aBag) {
     // Check the size if equal
-    if (size != anotherBag.size) return false;
+    if (size != aBag.size) return false;
 
+    // Init an array to store the count of each value
     int count[MAX_VALUE] = {0};
+    // Then count the number of each value in this.bag
     for (int i = 0; i < size; i++) count[values[i]]++;
-    for (int i = 0; i < size; i++) count[anotherBag.values[i]]--;
+    // Then decrease the count of each value in another bag aBag
+    for (int i = 0; i < size; i++) count[aBag.values[i]]--;
+    // If all the count is 0, then the two bags are equal
     for (int i = 0; i < size; i++)
       if (count[i] != 0) return false;
     return true;
@@ -68,16 +72,15 @@ class Bag {
 
   // Check if this bag is subset of another bag
   // This way, it would take more time than the way I'm using in isEqual()
-  bool isSubsetOf(Bag& anotherBag) {
+  bool isSubsetOf(Bag& aBag) {
     for (int i = 0; i < size; i++)
-      if (count(values[i]) > anotherBag.count(values[i])) return false;
+      if (count(values[i]) > aBag.count(values[i])) return false;
     return true;
   }
 
   // Merge two bags
-  void merge(Bag& anotherBag) {
-    for (int i = 0; i < anotherBag.size; i++)
-      values[size++] = anotherBag.values[i];
+  void merge(Bag& aBag) {
+    for (int i = 0; i < aBag.size; i++) values[size++] = aBag.values[i];
   };
 
   // Print the list of values, for debugging purpose
