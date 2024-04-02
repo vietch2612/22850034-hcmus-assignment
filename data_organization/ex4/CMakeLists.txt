@@ -1,13 +1,14 @@
-# CMakeLists.txt
-# This is the main CMake configuration file for VIQR_UTF8 project.
-# It is used to configure the project and generate the build system.
-
 # Prject name: VIQR_UTF8
 # Author: Cao Hoai Viet
 # MSSV: 22850034
 # Created date: 2024-04-02
 
-cmake_minimum_required(VERSION 3.10)  # Set the minimum version of CMake required
+# CMakeLists.txt
+# This is the main CMake configuration file for VIQR_UTF8 project.
+# It is used to configure the project and generate the build system.
+
+ # Set the minimum version of CMake required
+cmake_minimum_required(VERSION 3.10)
 
 # Set your project name and version
 project(VIQR_UTF8 VERSION 1.0)
@@ -49,4 +50,3 @@ include(GoogleTest)
 
 # Discover tests automatically. This allows CTest to automatically discover tests.
 gtest_discover_tests(VIQR_UTF8_Test)
-

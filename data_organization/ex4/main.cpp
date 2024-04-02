@@ -35,15 +35,3 @@ int main(int argc, char* argv[]) {
 
   return 0;
 }
-
-// int main() {
-//   std::string test = "Vie^.t Nam dda^'t nu*o*'c me^'n ye^u";
-//   // std::string test = "a^'";
-//   std::string utf8 = viqrToUtf8(test);
-//   std::cout << utf8 << std::endl;
-//
-//   std::string utf8Text = "điện thoại";  // Example input
-//   std::string viqrText = utf8ToViqr(utf8Text);
-//   std::cout << "VIQR representation: " << viqrText << std::endl;
-//   return 0;
-// }

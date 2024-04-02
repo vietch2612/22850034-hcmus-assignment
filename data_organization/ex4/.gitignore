@@ -4,6 +4,9 @@ Release/
 Debug/
 out/
 *.build/
+.cache/
+.clangd/
+.vscode/
 
 # Ignore object files, archives (.a), and shared libraries (.so, .dll, .dylib)
 *.o
