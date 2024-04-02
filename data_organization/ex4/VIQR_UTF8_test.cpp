@@ -1,9 +1,8 @@
 // test_VIQR_UTF8.cpp
 // Author: Cao Hoai Viet (Ross)
-// Last update: 2024-04-02
-#include <gtest/gtest.h>
-
 #include "VIQR_UTF8.h"
+
+#include <gtest/gtest.h>
 
 // Please remember to switch Unicode precomposed in your Vietnamese input method
 // Before type the Vietnamese characters in the string literals

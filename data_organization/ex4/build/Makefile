@@ -262,6 +262,54 @@ gtest_main/fast:
 	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/build.make _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/build
 .PHONY : gtest_main/fast
 
+FileProcessor.o: FileProcessor.cpp.o
+.PHONY : FileProcessor.o
+
+# target to build an object file
+FileProcessor.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VIQR_UTF8_Lib.dir/build.make CMakeFiles/VIQR_UTF8_Lib.dir/FileProcessor.cpp.o
+.PHONY : FileProcessor.cpp.o
+
+FileProcessor.i: FileProcessor.cpp.i
+.PHONY : FileProcessor.i
+
+# target to preprocess a source file
+FileProcessor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VIQR_UTF8_Lib.dir/build.make CMakeFiles/VIQR_UTF8_Lib.dir/FileProcessor.cpp.i
+.PHONY : FileProcessor.cpp.i
+
+FileProcessor.s: FileProcessor.cpp.s
+.PHONY : FileProcessor.s
+
+# target to generate assembly for a file
+FileProcessor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VIQR_UTF8_Lib.dir/build.make CMakeFiles/VIQR_UTF8_Lib.dir/FileProcessor.cpp.s
+.PHONY : FileProcessor.cpp.s
+
+FileProcessor_test.o: FileProcessor_test.cpp.o
+.PHONY : FileProcessor_test.o
+
+# target to build an object file
+FileProcessor_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VIQR_UTF8_Test.dir/build.make CMakeFiles/VIQR_UTF8_Test.dir/FileProcessor_test.cpp.o
+.PHONY : FileProcessor_test.cpp.o
+
+FileProcessor_test.i: FileProcessor_test.cpp.i
+.PHONY : FileProcessor_test.i
+
+# target to preprocess a source file
+FileProcessor_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VIQR_UTF8_Test.dir/build.make CMakeFiles/VIQR_UTF8_Test.dir/FileProcessor_test.cpp.i
+.PHONY : FileProcessor_test.cpp.i
+
+FileProcessor_test.s: FileProcessor_test.cpp.s
+.PHONY : FileProcessor_test.s
+
+# target to generate assembly for a file
+FileProcessor_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VIQR_UTF8_Test.dir/build.make CMakeFiles/VIQR_UTF8_Test.dir/FileProcessor_test.cpp.s
+.PHONY : FileProcessor_test.cpp.s
+
 VIQR_UTF8.o: VIQR_UTF8.cpp.o
 .PHONY : VIQR_UTF8.o
 
@@ -354,6 +402,12 @@ help:
 	@echo "... gmock_main"
 	@echo "... gtest"
 	@echo "... gtest_main"
+	@echo "... FileProcessor.o"
+	@echo "... FileProcessor.i"
+	@echo "... FileProcessor.s"
+	@echo "... FileProcessor_test.o"
+	@echo "... FileProcessor_test.i"
+	@echo "... FileProcessor_test.s"
 	@echo "... VIQR_UTF8.o"
 	@echo "... VIQR_UTF8.i"
 	@echo "... VIQR_UTF8.s"

@@ -27,7 +27,7 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 # Create a library from the VIQR_UTF8 source
-add_library(VIQR_UTF8_Lib VIQR_UTF8.cpp)  # This creates a library named VIQR_UTF8_Lib from VIQR_UTF8.cpp
+add_library(VIQR_UTF8_Lib VIQR_UTF8.cpp FileProcessor.cpp)  # This creates a library named VIQR_UTF8_Lib from VIQR_UTF8.cpp
 
 # Create the main executable
 add_executable(VIQR_UTF8 main.cpp)
@@ -39,7 +39,7 @@ target_link_libraries(VIQR_UTF8 VIQR_UTF8_Lib)
 enable_testing()
 
 # Add an executable for the tests
-add_executable(VIQR_UTF8_Test VIQR_UTF8_test.cpp)
+add_executable(VIQR_UTF8_Test VIQR_UTF8_test.cpp FileProcessor_test.cpp)
 
 # Link the test executable with GoogleTest and the VIQR_UTF8_Lib library it tests
 target_link_libraries(VIQR_UTF8_Test gtest_main VIQR_UTF8_Lib)

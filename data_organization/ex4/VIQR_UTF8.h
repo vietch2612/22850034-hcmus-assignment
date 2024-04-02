@@ -1,6 +1,5 @@
 // VIQR_UTF8.h
 // Author: Cao Hoai Viet (Ross)
-// Last update: 2024-04-02
 #ifndef VIQR_UTF8_H
 #define VIQR_UTF8_H
 

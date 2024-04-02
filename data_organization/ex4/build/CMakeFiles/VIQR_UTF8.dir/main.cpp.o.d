@@ -843,4 +843,5 @@ CMakeFiles/VIQR_UTF8.dir/main.cpp.o: \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__filesystem/recursive_directory_iterator.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__filesystem/u8path.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/iostream \
+  /Users/vietcao/repos/hcmus-asignment/data_organization/ex4/FileProcessor.h \
   /Users/vietcao/repos/hcmus-asignment/data_organization/ex4/VIQR_UTF8.h
