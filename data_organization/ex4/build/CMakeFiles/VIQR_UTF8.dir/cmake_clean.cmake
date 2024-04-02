@@ -1,6 +1,4 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/VIQR_UTF8.dir/VIQR_UTF8.cpp.o"
-  "CMakeFiles/VIQR_UTF8.dir/VIQR_UTF8.cpp.o.d"
   "CMakeFiles/VIQR_UTF8.dir/main.cpp.o"
   "CMakeFiles/VIQR_UTF8.dir/main.cpp.o.d"
   "VIQR_UTF8"

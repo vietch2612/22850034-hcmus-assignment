@@ -8,7 +8,6 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/Users/vietcao/repos/hcmus-asignment/data_organization/ex4/VIQR_UTF8.cpp" "CMakeFiles/VIQR_UTF8.dir/VIQR_UTF8.cpp.o" "gcc" "CMakeFiles/VIQR_UTF8.dir/VIQR_UTF8.cpp.o.d"
   "/Users/vietcao/repos/hcmus-asignment/data_organization/ex4/main.cpp" "CMakeFiles/VIQR_UTF8.dir/main.cpp.o" "gcc" "CMakeFiles/VIQR_UTF8.dir/main.cpp.o.d"
   )
 
