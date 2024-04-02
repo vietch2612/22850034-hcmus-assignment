@@ -1,6 +1,5 @@
 // main.cpp
 // Author: Cao Hoai Viet (Ross)
-// Last update: 2024-04-02
 #include <fstream>
 #include <iostream>
 #include <string>

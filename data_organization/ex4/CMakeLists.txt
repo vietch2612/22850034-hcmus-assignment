@@ -39,7 +39,7 @@ target_link_libraries(VIQR_UTF8 VIQR_UTF8_Lib)
 enable_testing()
 
 # Add an executable for the tests
-add_executable(VIQR_UTF8_Test test_VIQR_UTF8.cpp)
+add_executable(VIQR_UTF8_Test VIQR_UTF8_test.cpp)
 
 # Link the test executable with GoogleTest and the VIQR_UTF8_Lib library it tests
 target_link_libraries(VIQR_UTF8_Test gtest_main VIQR_UTF8_Lib)

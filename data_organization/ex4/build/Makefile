@@ -286,6 +286,30 @@ VIQR_UTF8.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/VIQR_UTF8_Lib.dir/build.make CMakeFiles/VIQR_UTF8_Lib.dir/VIQR_UTF8.cpp.s
 .PHONY : VIQR_UTF8.cpp.s
 
+VIQR_UTF8_test.o: VIQR_UTF8_test.cpp.o
+.PHONY : VIQR_UTF8_test.o
+
+# target to build an object file
+VIQR_UTF8_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VIQR_UTF8_Test.dir/build.make CMakeFiles/VIQR_UTF8_Test.dir/VIQR_UTF8_test.cpp.o
+.PHONY : VIQR_UTF8_test.cpp.o
+
+VIQR_UTF8_test.i: VIQR_UTF8_test.cpp.i
+.PHONY : VIQR_UTF8_test.i
+
+# target to preprocess a source file
+VIQR_UTF8_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VIQR_UTF8_Test.dir/build.make CMakeFiles/VIQR_UTF8_Test.dir/VIQR_UTF8_test.cpp.i
+.PHONY : VIQR_UTF8_test.cpp.i
+
+VIQR_UTF8_test.s: VIQR_UTF8_test.cpp.s
+.PHONY : VIQR_UTF8_test.s
+
+# target to generate assembly for a file
+VIQR_UTF8_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VIQR_UTF8_Test.dir/build.make CMakeFiles/VIQR_UTF8_Test.dir/VIQR_UTF8_test.cpp.s
+.PHONY : VIQR_UTF8_test.cpp.s
+
 main.o: main.cpp.o
 .PHONY : main.o
 
@@ -310,30 +334,6 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/VIQR_UTF8.dir/build.make CMakeFiles/VIQR_UTF8.dir/main.cpp.s
 .PHONY : main.cpp.s
 
-test_VIQR_UTF8.o: test_VIQR_UTF8.cpp.o
-.PHONY : test_VIQR_UTF8.o
-
-# target to build an object file
-test_VIQR_UTF8.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/VIQR_UTF8_Test.dir/build.make CMakeFiles/VIQR_UTF8_Test.dir/test_VIQR_UTF8.cpp.o
-.PHONY : test_VIQR_UTF8.cpp.o
-
-test_VIQR_UTF8.i: test_VIQR_UTF8.cpp.i
-.PHONY : test_VIQR_UTF8.i
-
-# target to preprocess a source file
-test_VIQR_UTF8.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/VIQR_UTF8_Test.dir/build.make CMakeFiles/VIQR_UTF8_Test.dir/test_VIQR_UTF8.cpp.i
-.PHONY : test_VIQR_UTF8.cpp.i
-
-test_VIQR_UTF8.s: test_VIQR_UTF8.cpp.s
-.PHONY : test_VIQR_UTF8.s
-
-# target to generate assembly for a file
-test_VIQR_UTF8.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/VIQR_UTF8_Test.dir/build.make CMakeFiles/VIQR_UTF8_Test.dir/test_VIQR_UTF8.cpp.s
-.PHONY : test_VIQR_UTF8.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -357,12 +357,12 @@ help:
 	@echo "... VIQR_UTF8.o"
 	@echo "... VIQR_UTF8.i"
 	@echo "... VIQR_UTF8.s"
+	@echo "... VIQR_UTF8_test.o"
+	@echo "... VIQR_UTF8_test.i"
+	@echo "... VIQR_UTF8_test.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... test_VIQR_UTF8.o"
-	@echo "... test_VIQR_UTF8.i"
-	@echo "... test_VIQR_UTF8.s"
 .PHONY : help
 
 

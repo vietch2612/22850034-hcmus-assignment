@@ -9,7 +9,8 @@
 // These mappings should be in the same length and order
 // And should be sorted by the length of the first element in descending order
 // Example: "e^`" should be before "e^"
-// I did not sort it on runtime to increase performance
+// Original mappings isn't sorted, copied from
+// https://github.com/anhskohbo/u-convert/blob/master/src/UConvert.php
 std::vector<std::string> viqrChars = {
     "A(`", "A(.", "u*.", "U*.", "u*~", "U*~", "u*?", "U*?", "u*`", "U*`", "u*'",
     "U*'", "o*.", "O*.", "o*~", "O*~", "o*?", "O*?", "o*`", "O*`", "o*'", "O*'",
@@ -26,13 +27,15 @@ std::vector<std::string> viqrChars = {
     "Y~",  "a?",
 };
 
+// Mapping from VIQR to UTF-8
+// Used this tool to convert http://www.enderminh.com/minh/vnconversions.aspx
 std::vector<std::string> utf8Chars = {
     "Ằ", "Ặ", "ự", "Ự", "ữ", "Ữ", "ử", "Ử", "ừ", "Ừ", "ứ", "Ứ", "ợ", "Ợ", "ỡ",
     "Ỡ", "ở", "Ở", "ờ", "Ờ", "ớ", "Ớ", "ộ", "Ộ", "ỗ", "Ỗ", "ổ", "Ổ", "ồ", "Ồ",
     "ố", "Ố", "ệ", "Ệ", "ễ", "Ễ", "ể", "Ể", "ề", "Ề", "ế", "Ế", "ặ", "ẵ", "Ẵ",
     "ẳ", "Ẳ", "ằ", "Ấ", "ấ", "Ầ", "ầ", "Ẩ", "ẩ", "Ẫ", "ẫ", "Ậ", "ậ", "Ắ", "ắ",
     "À", "ỹ", "Ả", "ạ", "Ạ", "ư", "Á", "Ư", "Ẹ", "ẹ", "Ẻ", "ẻ", "Ẽ", "ẽ", "ơ",
-    "Ơ", "ũ", "Ũ", "ĩ", "Ĩ", "đ", "Ð", "ă", "Ă", "Ỉ", "ỉ", "Ị", "ị", "Ọ", "ọ",
+    "Ơ", "ũ", "Ũ", "ĩ", "Ĩ", "đ", "Đ", "ă", "Ă", "Ỉ", "ỉ", "Ị", "ị", "Ọ", "ọ",
     "Ỏ", "ỏ", "ý", "ú", "ù", "õ", "ô", "ó", "ò", "í", "ì", "ê", "é", "è", "ã",
     "â", "á", "à", "Ý", "Ú", "Ù", "Õ", "Ụ", "ụ", "Ủ", "ủ", "Ô", "Ó", "Ò", "Í",
     "Ì", "Ê", "É", "È", "Ã", "Â", "Ỳ", "ỳ", "Ỵ", "ỵ", "Ỷ", "ỷ", "Ỹ", "ả",
