@@ -1,0 +1,3 @@
+/Users/vietcao/repos/hcmus-asignment/data_organization/ex4/build/CMakeFiles/VIQR_UTF8.dir
+/Users/vietcao/repos/hcmus-asignment/data_organization/ex4/build/CMakeFiles/edit_cache.dir
+/Users/vietcao/repos/hcmus-asignment/data_organization/ex4/build/CMakeFiles/rebuild_cache.dir
