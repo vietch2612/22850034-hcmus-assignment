@@ -33,37 +33,41 @@ std::vector<std::string> utf8Chars = {
     "Ử", "ử", "Ữ", "ữ", "Ự", "ự", "Ỳ", "ỳ", "Ỵ", "ỵ", "Ỷ", "ỷ", "Ỹ", "ỹ"};
 
 std::string viqrToUtf8(const std::string& viqr) {
-  // Create a mapping from VIQR to UTF-8
-  std::unordered_map<std::string, std::string> viqrToUtf8Map;
+  // Temporarily use a vector of pairs to be able to sort by sequence length
+  std::vector<std::pair<std::string, std::string>> pairs;
   for (size_t i = 0; i < viqrChars.size(); ++i) {
-    viqrToUtf8Map[viqrChars[i]] = utf8Chars[i];
+    pairs.emplace_back(viqrChars[i], utf8Chars[i]);
   }
+
+  // Sort pairs by the length of the first element in descending order
+  std::sort(pairs.begin(), pairs.end(),
+            [](const std::pair<std::string, std::string>& a,
+               const std::pair<std::string, std::string>& b) {
+              return a.first.length() > b.first.length();
+            });
 
   std::string utf8;
   for (size_t i = 0; i < viqr.length();) {
     bool matched = false;
 
-    // Check for multi-character sequences first (e.g., "dd")
-    for (const auto& pair : viqrToUtf8Map) {
+    // Check for multi-character sequences first, now guaranteed longer
+    // sequences first
+    for (const auto& pair : pairs) {
       if (viqr.substr(i, pair.first.length()) == pair.first) {
         utf8 += pair.second;
         i += pair.first.length();
         matched = true;
-        break;
+        break;  // Found the longest matching sequence at this position
       }
     }
 
     // If no multi-character sequence matched, process single characters
     if (!matched) {
-      auto singleChar = viqrToUtf8Map.find(std::string(1, viqr[i]));
-      if (singleChar != viqrToUtf8Map.end()) {
-        utf8 += singleChar->second;
-      } else {
-        utf8 += viqr[i];
-      }
-      ++i;
+      utf8 += viqr[i];
+      i++;
     }
   }
+
   return utf8;
 }
 

@@ -20,6 +20,7 @@ TEST(VIQRToUtf8Conversion, SpecialCharacters) {
 TEST(VIQRToUtf8Conversion, CharactersWithDiacritics) {
   EXPECT_EQ(viqrToUtf8("a'"), "á");
   EXPECT_EQ(viqrToUtf8("e^`"), "ề");
+  EXPECT_EQ(viqrToUtf8("u*'"), "ứ");
 }
 
 TEST(VIQRToUtf8Conversion, FullParagraph) {
