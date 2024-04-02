@@ -1,7 +1,6 @@
 # Prject name: VIQR_UTF8
-# Author: Cao Hoai Viet
+# Author: Cao Hoai Viet (Ross)
 # MSSV: 22850034
-# Created date: 2024-04-02
 
 # CMakeLists.txt
 # This is the main CMake configuration file for VIQR_UTF8 project.

@@ -1,10 +1,16 @@
+// test_VIQR_UTF8.cpp
+// Author: Cao Hoai Viet (Ross)
+// Last update: 2024-04-02
 #include <gtest/gtest.h>
 
 #include "VIQR_UTF8.h"
 
+// Please remember to switch Unicode precomposed in your Vietnamese input method
+// Before type the Vietnamese characters in the string literals
+
 TEST(VIQRToUtf8Conversion, BaseCharacters) {
   EXPECT_EQ(viqrToUtf8("a"), "a");
-  EXPECT_EQ(viqrToUtf8("ă"), "ă");
+  EXPECT_EQ(viqrToUtf8("a'"), "á");
 }
 
 TEST(VIQRToUtf8Conversion, SpecialCharacters) {
@@ -19,6 +25,12 @@ TEST(VIQRToUtf8Conversion, CharactersWithDiacritics) {
 TEST(VIQRToUtf8Conversion, FullParagraph) {
   std::string expected = "Việt Nam đất nước mến yêu";
   std::string actual = viqrToUtf8("Vie^.t Nam dda^'t nu*o*'c me^'n ye^u");
+  EXPECT_EQ(actual, expected);
+}
+
+TEST(VIQRToUtf8Conversion, UpperCaseCharacters) {
+  std::string expected = "Á Ề Ỉ Ỗ Ử Ỹ";
+  std::string actual = viqrToUtf8("A' E^` I? O^~ U*? Y~");
   EXPECT_EQ(actual, expected);
 }
 
