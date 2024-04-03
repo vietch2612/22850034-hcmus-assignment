@@ -44,6 +44,10 @@ TEST(VIQRToUtf8Conversion, FullParagraph) {
             "Đại học Khoa học tự nhiên TP.HCM");
 };
 
+TEST(VIQRToUtf8Conversion, EscapeCharacters) {
+  EXPECT_EQ(viqrToUtf8("ye^u\."), "yêu.");
+}
+
 TEST(VIQRToUtf8Conversion, UpperCaseCharacters) {
   std::string expected = "Á Ề Ỉ Ỗ Ử Ỹ";
   std::string actual = viqrToUtf8("A' E^` I? O^~ U*? Y~");

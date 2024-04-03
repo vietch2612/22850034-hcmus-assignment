@@ -15,9 +15,19 @@ void processFile(int mode, const std::string& inputFilePath,
   std::string content((std::istreambuf_iterator<char>(inFile)),
                       std::istreambuf_iterator<char>());
 
+  if (!inFile.is_open()) {
+    std::cerr << "Could not open input file: " << inputFilePath << std::endl;
+    return;
+  }
+
+  // Process the content based on the mode
   if (mode == 1) {
     outFile << viqrToUtf8(content);
   } else if (mode == 2) {
     outFile << utf8ToViqr(content);
   }
+
+  // Close the files
+  inFile.close();
+  outFile.close();
 }

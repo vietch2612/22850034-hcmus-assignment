@@ -43,22 +43,27 @@ std::vector<std::string> utf8Chars = {
 
 std::string viqrToUtf8(const std::string& viqr) {
   std::string utf8;
-  for (size_t i = 0; i < viqr.length();) {  // Iterate through the VIQR string
-    bool matched = false;
+  for (size_t i = 0; i < viqr.length();) {
+    if (viqr[i] == '\\' &&
+        i + 1 < viqr.length()) {  // Check for escape character
+      utf8 += viqr[i + 1];        // Append the character following the escape
+      i += 2;    // Skip the next character as it has been processed
+      continue;  // Continue with the next iteration
+    }
 
-    for (size_t j = 0; j < viqrChars.size();
-         ++j) {  // Iterate through the VIQR characters
+    bool matched = false;
+    for (size_t j = 0; j < viqrChars.size(); ++j) {
       if (viqr.substr(i, viqrChars[j].length()) ==
-          viqrChars[j]) {            // Check if the VIQR character is found
+          viqrChars[j]) {            // Check for match
         utf8 += utf8Chars[j];        // Append the corresponding UTF-8 character
         i += viqrChars[j].length();  // Move to the next character
-        matched = true;              // Set the matched flag to true
+        matched = true;
         break;
       }
     }
 
-    if (!matched) {     // If the VIQR character is not found
-      utf8 += viqr[i];  // Append the character itself
+    if (!matched) {     // If no match is found
+      utf8 += viqr[i];  // Append the character as is
       i++;              // Move to the next character
     }
   }

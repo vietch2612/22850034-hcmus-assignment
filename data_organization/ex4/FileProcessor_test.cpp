@@ -24,7 +24,6 @@ std::string readTestFile(const std::string& filePath) {
   return content;
 }
 
-// Test conversion from VIQR to UTF8
 TEST(ProcessFileTest, ViqrToUtf8Conversion) {
   // Arrange
   std::string inputFilePath = "in.txt";
@@ -40,7 +39,6 @@ TEST(ProcessFileTest, ViqrToUtf8Conversion) {
   ASSERT_EQ(readTestFile(outputFilePath), expectedOutput);
 }
 
-// Test conversion from UTF8 to VIQR
 TEST(ProcessFileTest, Utf8ToViqrConversion) {
   // Arrange
   std::string inputFilePath = "in.txt";
@@ -53,5 +51,20 @@ TEST(ProcessFileTest, Utf8ToViqrConversion) {
   // Assert
   std::string expectedOutput =
       "Vie^.t Nam dda^'t nu*o*'c me^'n ye^u";  // Expected VIQR output
+  ASSERT_EQ(readTestFile(outputFilePath), expectedOutput);
+}
+
+TEST(ProcessFileTest, EscapeCharacters) {
+  // Arrange
+  std::string inputFilePath = "in.txt";
+  std::string outputFilePath = "out.txt";
+  writeTestFile(inputFilePath, "Vie^.t Nam dda^'t nu*o*'c me^'n ye^u\\.");
+
+  // Act
+  processFile(1, inputFilePath, outputFilePath);
+
+  // Assert
+  std::string expectedOutput =
+      "Việt Nam đất nước mến yêu.";  // Expected VIQR output
   ASSERT_EQ(readTestFile(outputFilePath), expectedOutput);
 }
