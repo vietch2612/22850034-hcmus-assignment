@@ -47,8 +47,11 @@ std::string viqrToUtf8(const std::string& viqr) {
     // Like 'a^', 'a~', 'a`', etc.
     bool matched = false;
     for (size_t j = 0; j < viqrChars.size(); ++j) {
-      if (viqr.substr(i, viqrChars[j].length()) ==
-          viqrChars[j]) {            // Check for match
+      // Check for match with the viqrChars
+      // It is crucial to sort the viqrChars by the length of the first element
+      // in descending order
+      // So that the longer character like 'a^`' is matched before 'a^'
+      if (viqr.substr(i, viqrChars[j].length()) == viqrChars[j]) {
         utf8 += utf8Chars[j];        // Append the corresponding UTF-8 character
         i += viqrChars[j].length();  // Move to the next character
         matched = true;
@@ -72,11 +75,12 @@ std::string utf8ToViqr(const std::string& utf8) {
   // Loop through utf8 string
   for (size_t i = 0; i < utf8.length(); i++) {
     bool matched = false;
-    for (size_t j = 0; j < utf8Chars.size(); j++) {
+    for (size_t j = 0; j < utf8Chars.size(); j++) {  // Loop through utf8Chars
       // If the UTF8 character is match with the utf8Chars
+      // Same as viqrToUtf8, the utf8Chars should be sorted by the length
       if (utf8.substr(i, utf8Chars[j].length()) == utf8Chars[j]) {
-        result += viqrChars[j];
-        i += utf8Chars[j].length() - 1;
+        result += viqrChars[j];  // Append the corresponding VIQR character
+        i += utf8Chars[j].length() - 1;  // Move to the next character
         matched = true;
         break;
       }
