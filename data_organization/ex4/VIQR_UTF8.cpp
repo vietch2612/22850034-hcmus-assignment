@@ -44,13 +44,15 @@ std::vector<std::string> utf8Chars = {
 std::string viqrToUtf8(const std::string& viqr) {
   std::string utf8;
   for (size_t i = 0; i < viqr.length();) {
-    if (viqr[i] == '\\' &&
-        i + 1 < viqr.length()) {  // Check for escape character
-      utf8 += viqr[i + 1];        // Append the character following the escape
-      i += 2;    // Skip the next character as it has been processed
-      continue;  // Continue with the next iteration
+    // Check for escape character
+    if (viqr[i] == '\\' && i + 1 < viqr.length()) {
+      utf8 += viqr[i + 1];  // Append the character following the escape
+      i += 2;               // Skip the next character as it has been processed
+      continue;             // Continue with the next iteration
     }
 
+    // Check for special characters
+    // Like 'a^', 'a~', 'a`', etc.
     bool matched = false;
     for (size_t j = 0; j < viqrChars.size(); ++j) {
       if (viqr.substr(i, viqrChars[j].length()) ==
@@ -62,7 +64,9 @@ std::string viqrToUtf8(const std::string& viqr) {
       }
     }
 
-    if (!matched) {     // If no match is found
+    // If no match is found
+    // It means it is a normal character like 'a', 'b', 'c', etc.
+    if (!matched) {
       utf8 += viqr[i];  // Append the character as is
       i++;              // Move to the next character
     }
