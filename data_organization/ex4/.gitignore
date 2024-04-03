@@ -21,3 +21,8 @@ CMakeFiles/
 cmake_install.cmake
 Makefile
 *.make
+
+# Test file
+test.txt
+test.cpp
+test

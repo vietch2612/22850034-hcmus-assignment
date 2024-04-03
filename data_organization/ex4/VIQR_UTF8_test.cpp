@@ -45,7 +45,7 @@ TEST(VIQRToUtf8Conversion, FullParagraph) {
 };
 
 TEST(VIQRToUtf8Conversion, EscapeCharacters) {
-  EXPECT_EQ(viqrToUtf8("ye^u\."), "yêu.");
+  EXPECT_EQ(viqrToUtf8("ye^u\\."), "yêu.");
 }
 
 TEST(VIQRToUtf8Conversion, UpperCaseCharacters) {
@@ -71,6 +71,12 @@ TEST(Utf8ToViqrConversion, CharactersWithDiacritics) {
 TEST(Utf8ToViqrConversion, FullParagraph) {
   std::string actual = utf8ToViqr("Việt Nam đất nước mến yêu");
   std::string expected = "Vie^.t Nam dda^'t nu*o*'c me^'n ye^u";
+  EXPECT_EQ(actual, expected);
+}
+
+TEST(Utf8ToViqrConversion, EscapeCharacters) {
+  std::string actual = utf8ToViqr("yêu.");
+  std::string expected = "ye^u\\.";
   EXPECT_EQ(actual, expected);
 }
 

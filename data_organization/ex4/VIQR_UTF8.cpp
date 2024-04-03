@@ -24,8 +24,7 @@ std::vector<std::string> viqrChars = {
     "i'",  "i`",  "e^",  "e'",  "e`",  "a~",  "a^",  "a'",  "a`",  "Y'",  "U'",
     "U`",  "O~",  "U.",  "u.",  "U?",  "u?",  "O^",  "O'",  "O`",  "I'",  "I`",
     "E^",  "E'",  "E`",  "A~",  "A^",  "Y`",  "y`",  "Y.",  "y.",  "Y?",  "y?",
-    "Y~",  "a?",
-};
+    "Y~",  "a?",  "\\."};
 
 // Mapping from VIQR to UTF-8
 // Used this tool to convert http://www.enderminh.com/minh/vnconversions.aspx
@@ -38,19 +37,12 @@ std::vector<std::string> utf8Chars = {
     "Ơ", "ũ", "Ũ", "ĩ", "Ĩ", "đ", "Đ", "ă", "Ă", "Ỉ", "ỉ", "Ị", "ị", "Ọ", "ọ",
     "Ỏ", "ỏ", "ý", "ú", "ù", "õ", "ô", "ó", "ò", "í", "ì", "ê", "é", "è", "ã",
     "â", "á", "à", "Ý", "Ú", "Ù", "Õ", "Ụ", "ụ", "Ủ", "ủ", "Ô", "Ó", "Ò", "Í",
-    "Ì", "Ê", "É", "È", "Ã", "Â", "Ỳ", "ỳ", "Ỵ", "ỵ", "Ỷ", "ỷ", "Ỹ", "ả",
+    "Ì", "Ê", "É", "È", "Ã", "Â", "Ỳ", "ỳ", "Ỵ", "ỵ", "Ỷ", "ỷ", "Ỹ", "ả", ".",
 };
 
 std::string viqrToUtf8(const std::string& viqr) {
   std::string utf8;
   for (size_t i = 0; i < viqr.length();) {
-    // Check for escape character
-    if (viqr[i] == '\\' && i + 1 < viqr.length()) {
-      utf8 += viqr[i + 1];  // Append the character following the escape
-      i += 2;               // Skip the next character as it has been processed
-      continue;             // Continue with the next iteration
-    }
-
     // Check for special characters
     // Like 'a^', 'a~', 'a`', etc.
     bool matched = false;
@@ -76,18 +68,24 @@ std::string viqrToUtf8(const std::string& viqr) {
 }
 
 std::string utf8ToViqr(const std::string& utf8) {
-  std::string result = utf8;  // The result string
-  for (size_t i = 0; i < utf8Chars.size();
-       ++i) {                        // Iterate through the UTF-8 characters
-    std::string::size_type pos = 0;  // The position of the found character
-    while ((pos = result.find(utf8Chars[i], pos)) !=
-           std::string::npos) {  // Find the UTF-8 character
-      result.replace(
-          pos, utf8Chars[i].length(),
-          viqrChars[i]);  // Replace the UTF-8 character with the VIQR character
-      pos += viqrChars[i].length();  // Move to the next character
+  std::string result = "";
+  // Loop through utf8 string
+  for (size_t i = 0; i < utf8.length(); i++) {
+    bool matched = false;
+    for (size_t j = 0; j < utf8Chars.size(); j++) {
+      // If the UTF8 character is match with the utf8Chars
+      if (utf8.substr(i, utf8Chars[j].length()) == utf8Chars[j]) {
+        result += viqrChars[j];
+        i += utf8Chars[j].length() - 1;
+        matched = true;
+        break;
+      }
+    }
+
+    // If no match is found, append the character as is
+    if (!matched) {
+      result += utf8[i];
     }
   }
-
   return result;
 }
