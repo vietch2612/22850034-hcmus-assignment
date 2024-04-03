@@ -37,7 +37,8 @@ brew install cmake
 ## Build and Run
 
 1. Extract the project files from the zip archive.
-2. Build the project using CMake:
+2. Open a terminal and navigate to the project directory.
+3. Build the application using CMake:
 
 ```bash
 cd VIQR_UTF8
@@ -71,6 +72,7 @@ VIQR_UTF8/
 ├── FileProcessor_test.cpp      # Tests for the FileProcessor functionality
 ├── main.cpp                    # The main entry point for the application, contains the main function
 ├── README.md                   # Project information and documentation
+├── README_Vietnamese.md        # Project information and documentation in Vietnamese
 ├── VIQR_UTF8.h                 # Header file for the functions
 ├── VIQR_UTF8.cpp               # Implementation of the functions
 ├── VIQR_UTF8_test.cpp          # Tests for the VIQR to UTF-8 conversion functionality
@@ -104,7 +106,5 @@ Test cases:
 - ProcessFileTest.Utf8ToViqrConversion
 - ProcessFileTest.EscapeCharacters
 
-## Screenshots
-
-Test result
+Example of a test result:
 ![Test result](screenshots/test.png)
