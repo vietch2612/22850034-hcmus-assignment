@@ -1,4 +1,4 @@
-My assignments during my time studying at the University of Natural Sciences, Vietnam National University, Ho Chi Minh City.
+My assignments during my time studying at the Ho Chi Minh University of Science (HCMUS)
 
 - [x] Graph Theory
 - [x] Pridicate Logic & Prolog
@@ -8,8 +8,14 @@ My assignments during my time studying at the University of Natural Sciences, Vi
 - [x] Introduction to Sofware Technology
 - [x] Software Testing
 - [x] Probability Statistics
-- [x] Web Application
+- [x] Web Application Development (NodeJS, ExpressJS, PostgreSQL)
 - [x] Artificial Intelligence Fundamental
-- [ ] Information Systems Analysis
-- [ ] Software Design
-- [ ] Project - Advanced Software Design
+- [x] Information Systems Analysis (UML, Use Case Diagram, Activity Diagram, Sequence Diagram)
+- [x] Software Design (UML, Design Pattern)
+- [x] Topic in Advanced Software Development (Design Pattern, SOLID Principle, Clean Code)
+- [ ] Topic in Data Organization (C++, Data Structure), expected completion date: 2024
+- [ ] Database Management System (SQL Server), expected completion date: 2024
+- [ ] Computer Statistics and Application (Python, Jupiter Notebook), expected completion date: 2024
+
+Expected graduation date: Sep, 2024
+Expected GPA: 3.5-3.7 / 4.0
