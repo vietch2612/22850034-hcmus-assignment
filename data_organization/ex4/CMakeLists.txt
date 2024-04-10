@@ -49,3 +49,9 @@ include(GoogleTest)
 
 # Discover tests automatically. This allows CTest to automatically discover tests.
 gtest_discover_tests(VIQR_UTF8_Test)
+
+# Copy in.txt to the build directory next to the executables
+configure_file(${CMAKE_SOURCE_DIR}/in.txt ${CMAKE_BINARY_DIR}/in.txt COPYONLY)
+
+# If your CMake or build setup does not automatically create this, you may need to adjust.
+configure_file(${CMAKE_SOURCE_DIR}/in.txt ${CMAKE_BINARY_DIR}/Release/in.txt COPYONLY)

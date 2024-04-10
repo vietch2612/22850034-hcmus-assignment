@@ -1,3 +1,4 @@
 {
-  "C_Cpp.default.compilerPath": "/opt/homebrew/opt/llvm/bin/clang++"
+  "C_Cpp.default.compilerPath": "/opt/homebrew/opt/llvm/bin/clang++",
+  "cmake.sourceDirectory": "/Users/vietcao/repos/hcmus-asignment/data_organization/ex4"
 }
