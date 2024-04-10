@@ -18,4 +18,5 @@ My assignments during my time studying at the Ho Chi Minh University of Science 
 - [ ] Computer Statistics and Application (Python, Jupiter Notebook), expected completion date: 2024
 
 Expected graduation date: Sep, 2024
+
 Expected GPA: 3.5-3.7 / 4.0
