@@ -103,7 +103,7 @@ cat in2.txt
 #### Kết quả chạy chương trình
 
 macOS
-![macOS](screenshots/sample_output_macOS.png)
+![macOS](screenshots/sample_output_macos.png)
 
 Windows
 ![Windows](screenshots/sample_output_windows.png)
