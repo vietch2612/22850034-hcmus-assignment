@@ -26,6 +26,36 @@ void append(NODE** head_ref, int value) {
   last->next = new_node;
 };
 
+void remove(NODE** head_ref, int value) {
+  NODE* prev = NULL;
+  NODE* current = *head_ref;
+
+  while (current != NULL) {
+    if (current->data == value) {
+      if (prev == NULL) {
+        *head_ref = current->next;
+      } else {
+        prev->next = current->next;
+      }
+    }
+    prev = current;
+    current = current->next;
+  }
+}
+
+void removeByRecurrsive(NODE** head_ref, int value) {
+  if (*head_ref == NULL) return;
+
+  if ((*head_ref)->data == value) {
+    NODE* temp = *head_ref;
+    *head_ref = (*head_ref)->next;
+    delete temp;
+    removeByRecurrsive(head_ref, value);
+  } else {
+    removeByRecurrsive(&(*head_ref)->next, value);
+  }
+}
+
 // Traverse from head toward the last and sum
 int sumPosByIterative(NODE* head) {
   int total = 0;
