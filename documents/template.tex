@@ -1,0 +1,92 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{vietnam}   % Use vietnam package for Vietnamese support
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{fancyhdr}        % Added for header and footer customization
+
+% Geometry for page margins
+\geometry{a4paper, margin=1in}
+
+% Define code listing styles
+\lstset{
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    frame=single,
+    numbers=left,
+    backgroundcolor=\color{gray!10},
+}
+
+% Fancy header and footer setup
+\pagestyle{fancy}
+\fancyhf{} % Clear all headers and footers
+\fancyhead[L]{MSSV: 22850034} % Left header
+\fancyhead[C]{VIQR\_UTF8 Converter} % Center header
+\fancyfoot[C]{Trang \thepage} % Center footer
+
+\title{VIQR\_UTF8 Converter}
+\author{Cao Hoài Việt}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Tổng quan chương trình}
+
+VIQR\_UTF8 Converter là Console Application để đọc văn bản tiếng Việt được mã hóa bằng VIQR từ một tệp đầu vào và xuất ra dưới dạng UTF8 tương ứng vào một tệp đầu ra, và ngược lại.
+
+\section*{Thông tin sinh viên}
+
+\begin{tabular}{ll}
+Họ và tên: & Cao Hoài Việt \\
+MSSV: & 22850034 \\
+Email: & \href{mailto:22850034@student.hcmus.edu.vn}{22850034@student.hcmus.edu.vn} \\
+Github Repository: & \url{https://github.com/vietch2612/22850034-hcmus-assignment/tree/main/data_organization/ex4}
+\end{tabular}
+
+\subsection*{Tự đánh giá mức độ hoàn thành: 100\%}
+
+\begin{tabular}{|l|c|}
+\hline
+Task & Status \\
+\hline
+Code & $\checkmark$ \\
+Build on macOS \& Windows & $\checkmark$ \\
+Unit test & $\checkmark$ \\
+Documentation & $\checkmark$ \\
+\hline
+\end{tabular}
+
+\section*{Công nghệ sử dụng}
+
+\begin{itemize}
+    \item C++11
+    \item CMake \url{https://cmake.org/}
+    \item Google Test \url{https://github.com/google/googletest}
+\end{itemize}
+
+\section*{Yêu cầu}
+
+\subsection*{Với Windows}
+\begin{itemize}
+    \item Cài đặt CMake: \url{https://cmake.org/download/}
+\end{itemize}
+
+\subsection*{Với Linux (Ubuntu)}
+\begin{lstlisting}[language=bash]
+sudo apt-get install cmake
+\end{lstlisting}
+
+\subsection*{Với macOS}
+\begin{lstlisting}[language=bash]
+brew install cmake
+\end{lstlisting}
+
+% Continue with sections for Compilation, Running the Application, Program Structure, Functionality, and Unit tests
+
+\end{document}
