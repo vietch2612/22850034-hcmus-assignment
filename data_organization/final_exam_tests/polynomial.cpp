@@ -39,8 +39,6 @@ float evaluate(Node *head, float x) {
   return result;
 }
 
-// In da thuc
-
 void print(Node *head) {
   Node *current = head;
   while (current != NULL) {

@@ -1,4 +1,5 @@
 {
   "C_Cpp.default.compilerPath": "/opt/homebrew/opt/llvm/bin/clang++",
+  "C_Cpp.clang_format_style": "{ BasedOnStyle: LLVM, AlignConsecutiveDeclarations: true }",
   "cmake.sourceDirectory": "/Users/vietcao/repos/hcmus-asignment/data_organization/ex4"
 }
