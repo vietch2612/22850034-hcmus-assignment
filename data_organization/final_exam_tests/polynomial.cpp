@@ -1,14 +1,3 @@
-// Mot da thuc bang n (n >= 0) la mot bieu thuc co dang a0 + a1x + a2x^2 + ... +
-// anx^n Trong do a0, a1, a2, ..., an la cac so thuc (an != 0) duoc goi la cac
-// he so, ki hieu hinh thuc x duoc goi la bien Neu thay mot so thuc v vao bien x
-// va thuc hien cac phep toan thi ta duoc ket qua la mot so thuc Goi la gia tri
-// cua da thuc tai v. Vi do cho da thuc P(x) = 1 - 2x^2 + x^3 thi P(x) la da
-// thuc bac 3 (n = 3) voi cac he so tuong ung a0 = 1, a1 = 0, a2 = -2, a3 = 1 Va
-// cac gia tri cua P(x) tai 1 la P(1) = 1 - 2*1^2 + 1^3 = 1 - 2 + 1 = 0 Su dung
-// Linked List, hay cai dat cac ham sau:
-
-// Mo ta cac to chuc du lieu cho cac da thuc
-
 #include <iostream>
 using namespace std;
 
@@ -18,7 +7,7 @@ struct Node {
   Node *next;
 };
 
-// Them mot monom vao da thuc
+// Add a new term to the polynomial
 void add(Node *&head, float coefficient, int exponent) {
   Node *newNode = new Node;
   newNode->coefficient = coefficient;
@@ -27,8 +16,7 @@ void add(Node *&head, float coefficient, int exponent) {
   head = newNode;
 }
 
-// Tinh gia tri cua da thuc tai x
-
+// Evaluate the polynomial at x
 float evaluate(Node *head, float x) {
   float result = 0;
   Node *current = head;
@@ -52,6 +40,7 @@ void print(Node *head) {
 }
 
 int main() {
+  // 1 + 0x + (-2)x^2 + 1x^3
   Node *head = NULL;
   add(head, 1, 0);
   add(head, 0, 1);

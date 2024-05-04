@@ -1,16 +1,3 @@
-/**
- * Gia su trong mot mat phang 2 chieu, ta can thao tac tren cac diem va cac hinh
- *nhu nhat. Cu the, ta noi mot diem nam trong mot hinh chu nhat neu diem do
- *thuoc hinh chu nhat va 2 hinh chu nhat roi nhau neu phan giao cua chung la
- *rong. Vi du, voi cac diem P1, P2 va cac hinh chu nhat H1, H2, H3 hu hinh duoi
- *day: Thi P1 nam trong H1, H2, nhung khong nam trong H3; P2 khong nam trong ca
- *3 hinh chu nhat H1, H2, H3; H2 va H3 roi nhau nhung H1 va H2 hay H1, va H3 thi
- *khong. Gia su cac diem va cac dinh hinh chu nhat deu co toa do nguyen, hay: a)
- *Mo ta cach to chuc du lieu cho cac diem va hinh chu nhat. Khai bao cau truc
- *struct. b) Viet ham kiem tra mot diem co nam trong mot hinh chu nhat hay
- *khong. c) Viet ham kiem tra hai hinh chu nhat co roi nhau hay khong.
- **/
-
 #include <iostream>
 using namespace std;
 
