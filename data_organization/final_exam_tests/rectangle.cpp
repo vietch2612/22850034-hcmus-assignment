@@ -15,8 +15,13 @@ bool isPointInRectangle(Point p, Rectangle r) {
 }
 
 bool isRectangleOverlap(Rectangle r1, Rectangle r2) {
-  return r1.topLeft.x < r2.bottomRight.x && r1.bottomRight.x > r2.topLeft.x &&
-         r1.topLeft.y > r2.bottomRight.y && r1.bottomRight.y < r2.topLeft.y;
+  bool c1 = r1.topLeft.x < r2.bottomRight.x;
+  bool c2 = r1.topLeft.y > r2.bottomRight.y;
+
+  bool c3 = r1.bottomRight.x > r2.topLeft.x;
+  bool c4 = r1.bottomRight.y < r2.topLeft.y;
+
+  return c1 && c2 && c3 && c4;
 }
 
 int main() {

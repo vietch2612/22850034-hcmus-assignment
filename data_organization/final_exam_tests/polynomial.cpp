@@ -21,7 +21,7 @@ float evaluate(Node *head, float x) {
   float result = 0;
   Node *current = head;
   while (current != NULL) {
-    result += current->coefficient * pow(x, current->exponent);
+    result += current->coefficient * pow(x, current->exponent);  // Cong thuc
     current = current->next;
   }
   return result;
@@ -40,7 +40,7 @@ void print(Node *head) {
 }
 
 int main() {
-  // 1 + 0x + (-2)x^2 + 1x^3
+  // 1*x^0 + 0xx1 + (-2)x^2 + 1 * x^3
   Node *head = NULL;
   add(head, 1, 0);
   add(head, 0, 1);

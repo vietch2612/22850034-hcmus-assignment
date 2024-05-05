@@ -31,7 +31,9 @@ void remove(NODE *&head, int x) {
 }
 
 void removeByRecurrsive(NODE *&head, int x) {
-  if (head == NULL) return;
+  if (head == NULL) {
+    return;
+  }
 
   if (head->data == x) {
     NODE *temp = head;
@@ -40,6 +42,19 @@ void removeByRecurrsive(NODE *&head, int x) {
     removeByRecurrsive(head, x);
   } else {
     removeByRecurrsive(head->next, x);
+  }
+}
+
+void sort(NODE *&head) {
+  NODE *prev = NULL;
+  NODE *current = head;
+
+  while (current != NULL) {
+    if (current->data > current->next->data) {
+      prev->next = current->next;
+    }
+    prev = current;
+    current = current->next;
   }
 }
 
