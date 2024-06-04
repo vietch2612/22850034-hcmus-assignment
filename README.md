@@ -13,9 +13,9 @@ My assignments during my time studying at the Ho Chi Minh University of Science 
 - [x] Information Systems Analysis (UML, Use Case Diagram, Activity Diagram, Sequence Diagram)
 - [x] Software Design (UML, Design Pattern)
 - [x] Topic in Advanced Software Development (Design Pattern, SOLID Principle, Clean Code)
-- [ ] Topic in Data Organization (C++, Data Structure), expected completion date: 2024
-- [ ] Database Management System (SQL Server), expected completion date: 2024
-- [ ] Computer Statistics and Application (Python, Jupiter Notebook), expected completion date: 2024
+- [x] Topic in Data Organization (C++, Data Structure), expected completion date: 2024
+- [x] Database Management System (SQL Server), expected completion date: 2024
+- [x] Computer Statistics and Application (Python, Jupiter Notebook), expected completion date: 2024
 
 Expected graduation date: Sep, 2024
 
