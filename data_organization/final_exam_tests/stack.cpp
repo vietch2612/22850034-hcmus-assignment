@@ -8,8 +8,10 @@ struct STACK {
   int top;
 };
 
+// Set the top of the stack to -1
 void init(STACK &S) { S.top = -1; }
 
+// If the top of the stack is -1, the stack is empty
 bool isEmpty(STACK &S) { return S.top == -1; }
 
 void push(STACK &S, int K) {

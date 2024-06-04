@@ -36,9 +36,7 @@ void removeByRecurrsive(NODE *&head, int x) {
   }
 
   if (head->data == x) {
-    NODE *temp = head;
     head = head->next;
-    delete temp;
     removeByRecurrsive(head, x);
   } else {
     removeByRecurrsive(head->next, x);
@@ -46,17 +44,40 @@ void removeByRecurrsive(NODE *&head, int x) {
 }
 
 void sort(NODE *&head) {
-  NODE *prev = NULL;
   NODE *current = head;
+  NODE *index = NULL;
+  int temp;
 
   while (current != NULL) {
-    if (current->data > current->next->data) {
-      prev->next = current->next;
+    index = current->next;
+
+    while (index != NULL) {
+      if (current->data > index->data) {
+        temp = current->data;
+        current->data = index->data;
+        index->data = temp;
+      }
+      index = index->next;
     }
-    prev = current;
     current = current->next;
   }
 }
+
+// // Recurrsive
+// NODE *max(NODE *&head) {
+//   if (head == NULL) {
+//     return;
+//   }
+
+//   NODE *maxNode = max(head->next);
+//   if (maxNode == NULL || head->data > maxNode->data) {
+//     return head;
+//   } else {
+//     return maxNode;
+//   }
+
+//   return NULL;
+// }
 
 int main() {
   NODE *head = new NODE;

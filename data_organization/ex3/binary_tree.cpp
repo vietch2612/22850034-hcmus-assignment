@@ -12,6 +12,22 @@ int sumPos(NODE* root) {
          sumPos(root->right);
 };
 
+int sumPositiveNodeUsingLoop(NODE* root) {
+  int sum = 0;
+  if (root == NULL) return 0;
+
+  NODE* stack[1000];
+  int top = -1;
+  stack[++top] = root;
+  while (top >= 0) {
+    NODE* node = stack[top--];
+    if (node->data > 0) sum += node->data;
+    if (node->right != NULL) stack[++top] = node->right;
+    if (node->left != NULL) stack[++top] = node->left;
+  }
+  return sum;
+}
+
 // Support method
 // To create a new node faster
 NODE* newNode(int value) {

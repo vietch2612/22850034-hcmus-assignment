@@ -24,6 +24,20 @@ bool isRectangleOverlap(Rectangle r1, Rectangle r2) {
   return c1 && c2 && c3 && c4;
 }
 
+// find overlapping
+Rectangle findOverlap(Rectangle r1, Rectangle r2) {
+  Rectangle r = {{0, 0}, {0, 0}};
+
+  if (isRectangleOverlap(r1, r2)) {
+    r.topLeft.x = max(r1.topLeft.x, r2.topLeft.x);
+    r.topLeft.y = min(r1.topLeft.y, r2.topLeft.y);
+    r.bottomRight.x = min(r1.bottomRight.x, r2.bottomRight.x);
+    r.bottomRight.y = max(r1.bottomRight.y, r2.bottomRight.y);
+  }
+
+  return r;
+}
+
 int main() {
   Point p1 = {1, 1};
   Point p2 = {2, 2};
